@@ -1,0 +1,637 @@
+/*
+ * Marco UI · tokens y estilos base de Pagorium.
+ * Paleta tonal verde con marco salvia y tarjetas blancas, modo oscuro y tema «green», tabla en filas tarjeta,
+ * esqueletos de carga y alineación entre claro y oscuro. Importa este archivo una vez en el layout raíz.
+ */
+@import 'tailwindcss';
+/* Animaciones y variantes de estado (data-open, data-checked…) que usan los componentes de shadcn sobre Radix. */
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Ancho máximo del contenido y de la barra: fluido hasta 1500 px (utilidad max-w-app). */
+  --container-app: 93.75rem;
+  /* Escala de app madura: 13, 15, 16, 18, 20 y 24 px; el texto no se ve fino. */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.15rem;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.4rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.55rem;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.6rem;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.65rem;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 1.85rem;
+}
+
+@theme inline {
+  /* Plus Jakarta Sans para todo; las cifras que se copian van en la monoespaciada del sistema. */
+  --font-sans: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-arial: 'Arial', sans-serif;
+
+  /* Radios del estilo Luma: menús y popovers a 12 px; botones, campos y estados en píldora
+     (`rounded-full`) y tarjetas y ventanas a 32 px (`rounded-4xl`), con sombra media. */
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 2px);
+  --radius-2xl: calc(var(--radius) + 6px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-full: 999px;
+
+  /* Escalas de marca del PDF (reemplazan esos tonos de Tailwind). */
+  --color-green-50: #EAF4EA;
+  --color-green-400: #66B069;
+  --color-green-600: #2F8D2C;
+  --color-green-700: #2D7A32;
+  --color-blue-50: #E8EDFB;
+  --color-blue-300: #7B93E6;
+  --color-blue-500: #3A60CF;
+  --color-blue-600: #3A55B8;
+  --color-carbon-400: #9BA3AB;
+  --color-carbon-700: #262B31;
+  --color-carbon-900: #15181B;
+  --color-carbon-950: #0B0D0F;
+  --color-ink: oklch(28.6% 0.016 107.4);
+  --color-line: oklch(88% 0.011 106.6);
+  --color-paper: oklch(98.8% 0.003 106.5);
+  --color-mora: oklch(55% 0.2 27);
+  --color-por-vencer: #F59E0B;
+  --color-info: #0891B2;
+  --background-image-brand: linear-gradient(180deg, #3A60CF 0%, #3DB24A 100%);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  /* Azul de la hoja del logo: acento de los íconos duotono. */
+  --color-icon: var(--icon);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-field: var(--field);
+  --color-frame: var(--frame);
+  --color-field-hover: var(--field-hover);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  /*---break---*/
+  /* El acordeón aparece con opacidad y desplazamiento: Hallmark no anima height. */
+  @keyframes accordion-down {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  /*---break---*/
+  @keyframes accordion-up {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+  }
+}
+
+/*
+ * Paleta tonal: superficies blancas, marco salvia, grises oliva y acento verde. La acción principal y el texto
+ * usan el tono que da 4.5:1 o más; el más claro queda para los íconos. El oscuro baja las superficies a
+ * oliva profundo y sube el verde. Contrastes verificados en ambos modos.
+ */
+:root {
+  /* Miniaturas de Apariencia: los dos temas a la vez, sin cambiar con el tema activo. */
+  --preview-light-surface: oklch(100% 0 0);
+  --preview-light-line: oklch(91% 0.015 148);
+  --preview-light-muted: oklch(93% 0.014 148);
+  --preview-light-accent: oklch(48% 0.11 148);
+  --preview-dark-surface: oklch(16% 0.015 148);
+  --preview-dark-line: oklch(37% 0.03 148);
+  --preview-dark-muted: oklch(26.5% 0.022 148);
+  --preview-dark-accent: oklch(83% 0.11 148);
+
+  /* Tema claro salvia suave: fondo, bordes y textos secundarios con un verde muy tenue del logo (tono 148,
+     croma bajo) para que combine con el tema oscuro sin teñir la pantalla; el verde pleno queda para la
+     acción principal, el foco, la selección y los estados. Página blanca, marcos salvia (--frame) y, dentro,
+     filas, campos y tarjetas blancas, igual que las vistas previas de la versión 2. */
+  --background: oklch(100% 0 0);
+  --foreground: oklch(21% 0.015 148);
+  --card: oklch(100% 0 0);
+  --card-foreground: oklch(21% 0.015 148);
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(21% 0.015 148);
+  /* Primario M3 tono 40 (6.2:1 sobre blanco) para la acción principal, el foco y el texto de acento. */
+  --primary: oklch(48% 0.11 148);
+  --primary-foreground: oklch(100% 0 0);
+  /* Íconos en «sobre superficie variante», verde muy oscuro. */
+  --icon: oklch(42% 0.03 148);
+  --secondary: oklch(92.5% 0.045 150);
+  --secondary-foreground: oklch(37% 0.085 150);
+  --muted: oklch(93% 0.014 148);
+  --muted-foreground: oklch(45% 0.025 148);
+  --accent: oklch(93.5% 0.013 148);
+  --accent-foreground: oklch(21% 0.015 148);
+  --destructive: oklch(51% 0.19 27);
+  --destructive-foreground: oklch(100% 0 0);
+  --border: oklch(91% 0.015 148);
+  --input: oklch(82% 0.025 148);
+  /* Campos (inputs, selects, calendarios, buscadores): fondo blanco propio sobre el gris de la página y borde
+     verde al pasar el cursor, para que todos se vean iguales y combinen con el resto. */
+  --field: oklch(100% 0 0);
+  /* Marcos de las secciones (listas, formularios, tableros): salvia sobre la página blanca, con los
+     elementos blancos encima, como en las vistas previas de la versión 2. */
+  --frame: oklch(94.5% 0.014 148);
+  --frame-raised: var(--frame);
+  --shadow-ink: color-mix(in oklab, var(--foreground), transparent 88%);
+  /* Panel de marca del inicio de sesión: el verde oscuro del logo, igual en claro y oscuro. */
+  --brand-ink: oklch(27% 0.065 150);
+  --brand-ink-glow: oklch(38% 0.1 150);
+  --field-hover: oklch(62% 0.09 150);
+  --ring: oklch(48% 0.11 148);
+  --radius: 0.75rem;
+  --chart-1: oklch(48% 0.11 148);
+  --chart-2: oklch(55% 0.07 220);
+  --chart-3: oklch(72% 0.11 75);
+  --chart-4: oklch(78% 0.08 148);
+  --chart-5: oklch(42% 0.03 148);
+  --sidebar: oklch(98.5% 0.005 148);
+  --sidebar-background: oklch(98.5% 0.005 148);
+  --sidebar-foreground: oklch(21% 0.015 148);
+  --sidebar-primary: oklch(48% 0.11 148);
+  --sidebar-primary-foreground: oklch(100% 0 0);
+  --sidebar-accent: oklch(92.5% 0.045 150);
+  --sidebar-accent-foreground: oklch(37% 0.085 150);
+  --sidebar-border: oklch(91% 0.015 148);
+  --sidebar-ring: oklch(48% 0.11 148);
+
+  /* Variables de marca del PDF. */
+  --gradient-brand: linear-gradient(180deg, #3A60CF 0%, #3DB24A 100%);
+}
+
+/* Papel: documentos e impresos siempre en fondo blanco puro, aunque el tema cambie de superficie. */
+.paper {
+  --background: #FFFFFF;
+  --card: #FFFFFF;
+  --popover: #FFFFFF;
+}
+
+.dark {
+  /* Oscuro tonal M3: superficie tono 6, tarjetas en contenedor (tono 12), texto tono 90 y primario
+     tono 80 con su «sobre primario» tono 20; todo con el mismo leve verde, sin gris puro. */
+  --background: oklch(16% 0.015 148);
+  --foreground: oklch(91% 0.02 148);
+  --card: oklch(22% 0.02 148);
+  --card-foreground: oklch(91% 0.02 148);
+  /* Menús y paneles al nivel de las tarjetas, para que el hover (superficie alta) se note. */
+  --popover: oklch(22% 0.02 148);
+  --popover-foreground: oklch(91% 0.02 148);
+  --primary: oklch(83% 0.11 148);
+  --primary-foreground: oklch(30% 0.07 148);
+  --icon: oklch(82% 0.03 148);
+  --secondary: oklch(37% 0.06 148);
+  --secondary-foreground: oklch(91% 0.05 148);
+  --muted: oklch(26.5% 0.022 148);
+  --muted-foreground: oklch(82% 0.03 148);
+  --accent: oklch(26.5% 0.022 148);
+  --accent-foreground: oklch(91% 0.02 148);
+  --destructive: oklch(84% 0.08 25);
+  --destructive-foreground: oklch(30% 0.1 27);
+  --border: oklch(37% 0.03 148);
+  --input: oklch(48% 0.03 148);
+  --frame: oklch(22% 0.02 148);
+  --frame-raised: oklch(31% 0.025 148);
+  --shadow-ink: oklch(0% 0 0 / 0.5);
+  --field: oklch(25% 0.022 148);
+  --field-hover: oklch(68% 0.1 148);
+  --ring: oklch(83% 0.11 148);
+  --chart-1: oklch(83% 0.11 148);
+  --chart-2: oklch(80% 0.07 220);
+  --chart-3: oklch(82% 0.1 80);
+  --chart-4: oklch(70% 0.08 148);
+  --chart-5: oklch(82% 0.016 148);
+  --sidebar: oklch(20% 0.018 148);
+  --sidebar-background: oklch(20% 0.018 148);
+  --sidebar-foreground: oklch(91% 0.02 148);
+  --sidebar-primary: oklch(83% 0.11 148);
+  --sidebar-primary-foreground: oklch(30% 0.07 148);
+  --sidebar-accent: oklch(37% 0.06 148);
+  --sidebar-accent-foreground: oklch(91% 0.05 148);
+  --sidebar-border: oklch(37% 0.03 148);
+  --sidebar-ring: oklch(83% 0.11 148);
+}
+
+/*
+ * Tema «green» (verde oscuro, el color principal de la marca) del PDF; se activa con la clase green en <html>.
+ * Los tokens de sidebar que el PDF no trae siguen los de tarjeta, acento y borde del mismo tema.
+ */
+.green {
+  --icon: #66B069;
+  --background: #071A0C;
+  --foreground: #F2F8F2;
+  --card: #0C2814;
+  --card-foreground: #F2F8F2;
+  --popover: #0C2814;
+  --popover-foreground: #F2F8F2;
+  --primary: #66B069;
+  --primary-foreground: #071A0C;
+  --secondary: #143A1E;
+  --secondary-foreground: #F2F8F2;
+  --muted: #143A1E;
+  --muted-foreground: #A9D9A6;
+  --accent: #143A1E;
+  --accent-foreground: #66B069;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #22552E;
+  --input: #2B6638;
+  --frame: #0C2814;
+  --frame-raised: #1D4B28;
+  --shadow-ink: oklch(0% 0 0 / 0.55);
+  --field: #0F3018;
+  --field-hover: #66B069;
+  --ring: #66B069;
+  --chart-1: #66B069;
+  --chart-2: #7B93E6;
+  --chart-3: #F59E0B;
+  --chart-4: #A9D9A6;
+  --chart-5: #EAF4EA;
+  --sidebar: #0C2814;
+  --sidebar-background: #0C2814;
+  --sidebar-foreground: #F2F8F2;
+  --sidebar-primary: #66B069;
+  --sidebar-primary-foreground: #071A0C;
+  --sidebar-accent: #143A1E;
+  --sidebar-accent-foreground: #66B069;
+  --sidebar-border: #1C4A27;
+  --sidebar-ring: #66B069;
+}
+
+/* Colores de las barras de las gráficas: los 6 de Chart.js (azul, rosa, turquesa, naranja, morado y amarillo)
+   y 14 más de la misma familia, para 20 tonos sin repetir. Sirven en claro y oscuro. */
+:root {
+  --bar-1: #36A2EB; /* azul */
+  --bar-2: #FF6384; /* rosa */
+  --bar-3: #4BC0C0; /* turquesa */
+  --bar-4: #FF9F40; /* naranja */
+  --bar-5: #9966FF; /* morado */
+  --bar-6: #FFCD56; /* amarillo */
+  --bar-7: #4BC07A; /* verde */
+  --bar-8: #E46FCB; /* magenta */
+  --bar-9: #5B74E3; /* índigo */
+  --bar-10: #F27059; /* coral */
+  --bar-11: #93C44A; /* lima */
+  --bar-12: #3BBFE0; /* cian */
+  --bar-13: #D6405F; /* frambuesa */
+  --bar-14: #2378B5; /* azul oscuro */
+  --bar-15: #2E8C8C; /* turquesa oscuro */
+  --bar-16: #E07B16; /* naranja oscuro */
+  --bar-17: #6F4BC4; /* morado oscuro */
+  --bar-18: #D1A71F; /* mostaza */
+  --bar-19: #2E8B52; /* verde oscuro */
+  --bar-20: #C08BEA; /* lila */
+}
+
+/* Oculta la barra de desplazamiento (la usa el sidebar de shadcn). */
+@utility no-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Barra de scroll delgada y discreta para listas (select y buscadores). */
+@utility scrollbar-subtle {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--muted-foreground) 35%, transparent) transparent;
+}
+
+/* Radix oculta la barra de scroll de la lista del select; aquí se vuelve a mostrar, delgada y discreta. */
+[data-slot='select-content'] [data-radix-select-viewport] {
+  scrollbar-width: thin !important;
+  scrollbar-color: color-mix(in oklab, var(--muted-foreground) 35%, transparent) transparent;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  /* Los íconos van en el verde de «al día» (`--icon`). Una clase de color en el propio ícono (capa de
+     utilidades) gana siempre; sobre botones sólidos y en texto rojo toman el color del texto. */
+  :where([data-icon]) {
+    color: var(--color-icon);
+  }
+
+  [data-slot='button'][data-variant='default'] [data-icon],
+  [data-slot='button'][data-variant='destructive'] [data-icon],
+  [data-variant='destructive'] [data-icon],
+  .text-destructive [data-icon],
+  .text-primary-foreground [data-icon],
+  .bg-primary [data-icon],
+  .bg-destructive [data-icon] {
+    color: currentColor;
+  }
+
+  /* Detalle de los íconos duotono (mismo color al 50 %); sobre botones sólidos y en rojo usa el color del texto. */
+  [data-slot='button'][data-variant='default'],
+  [data-slot='button'][data-variant='destructive'],
+  [data-variant='destructive'],
+  .text-destructive,
+  .bg-primary,
+  .bg-destructive {
+    --icon-accent: currentColor;
+  }
+
+  /* Los saltos a un ancla o a un campo (errores, `scrollIntoView`) dejan libre la cabecera fija, cuya altura
+     publica `AppHeader` en `--app-header-h`. */
+  html {
+    scroll-padding-top: calc(var(--app-header-h, 0px) + 1rem);
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Títulos más compactos: -0.03em equivale a -1.08px en 36px y se ajusta solo a cada tamaño. */
+  /* Títulos en Plus Jakarta Sans 600, compactos. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  /* Botón secundario con una sombra de 1 px, como un SaaS sobrio; el principal va plano. */
+  [data-slot='button'][data-variant='outline'] {
+    box-shadow: 0 1px 1px color-mix(in oklab, var(--color-foreground) 5%, transparent);
+  }
+
+  /* Cifras que se copian a un papel (cédulas, transacciones) en monoespaciada, con la clase font-mono. */
+  .font-mono {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Selección de texto en el esmeralda suave del tema. */
+  ::selection {
+    background-color: var(--color-secondary);
+    color: var(--color-secondary-foreground);
+  }
+
+  /* En tablas, todas las cifras con el mismo ancho para que los montos queden alineados. */
+  table {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.font-arial,
+.font-arial * {
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-weight: 400;
+}
+
+.font-arial h1,
+.font-arial label,
+.font-arial .doc-title,
+.font-arial .doc-label {
+  font-weight: 700;
+}
+
+/*
+ * Tablas en filas tarjeta: cada fila es una tarjeta redondeada separada
+ * de la siguiente. El color de la fila sale de --table-row: blanco dentro de las listas (tarjeta salvia)
+ * y un salvia suave cuando la tabla está sobre una superficie blanca (tarjetas, ventanas, menús), para que
+ * las filas se sigan distinguiendo. Las filas entran escalonadas al aparecer.
+ */
+@layer components {
+  [data-slot='table'] {
+    border-collapse: separate;
+    border-spacing: 0 0.375rem;
+  }
+
+  :where(.bg-card, [data-slot='card'], [data-slot='dialog-content'], [data-slot='popover-content'], [data-slot='sheet-content']) {
+    --table-row: color-mix(in oklab, var(--muted) 75%, var(--card));
+  }
+
+  .bg-frame {
+    --table-row: var(--card);
+  }
+
+  .dark .bg-frame {
+    --table-row: var(--muted);
+  }
+
+  [data-slot='table-body'] > [data-slot='table-row'] > [data-slot='table-cell'] {
+    background: var(--table-row, var(--card));
+    transition:
+      background-color 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  [data-slot='table-body'] > [data-slot='table-row'] > [data-slot='table-cell']:first-child {
+    border-start-start-radius: 0.875rem;
+    border-end-start-radius: 0.875rem;
+  }
+
+  [data-slot='table-body'] > [data-slot='table-row'] > [data-slot='table-cell']:last-child {
+    border-start-end-radius: 0.875rem;
+    border-end-end-radius: 0.875rem;
+  }
+
+  /* Al pasar el cursor la fila no cambia de color (se confundiría con el marco): conserva su tono y se
+     eleva 2 px con un borde gris y una sombra suave bajo toda la fila, como una tarjeta que se levanta. */
+  [data-slot='table-body'] > [data-slot='table-row'] {
+    transition:
+      transform 150ms ease,
+      filter 150ms ease;
+  }
+
+  [data-slot='table-body'] > [data-slot='table-row']:is(:hover, :has([aria-expanded='true'])) {
+    transform: translateY(-2px);
+    filter: drop-shadow(0 6px 10px color-mix(in oklab, var(--foreground) 14%, transparent));
+  }
+
+  [data-slot='table-body'] > [data-slot='table-row']:is(:hover, :has([aria-expanded='true'])) > [data-slot='table-cell'] {
+    --borde-fila: color-mix(in oklab, var(--foreground) 22%, transparent);
+    box-shadow:
+      inset 0 1px 0 var(--borde-fila),
+      inset 0 -1px 0 var(--borde-fila);
+  }
+
+  [data-slot='table-body'] > [data-slot='table-row']:is(:hover, :has([aria-expanded='true'])) > [data-slot='table-cell']:first-child {
+    box-shadow:
+      inset 1px 0 0 var(--borde-fila),
+      inset 0 1px 0 var(--borde-fila),
+      inset 0 -1px 0 var(--borde-fila);
+  }
+
+  [data-slot='table-body'] > [data-slot='table-row']:is(:hover, :has([aria-expanded='true'])) > [data-slot='table-cell']:last-child {
+    box-shadow:
+      inset -1px 0 0 var(--borde-fila),
+      inset 0 1px 0 var(--borde-fila),
+      inset 0 -1px 0 var(--borde-fila);
+  }
+
+  [data-slot='table-body'] > [data-slot='table-row'][data-state='selected'] > [data-slot='table-cell'] {
+    background: var(--secondary);
+  }
+
+  /* Entrada escalonada de las primeras filas (solo opacidad y desplazamiento). */
+  [data-slot='table-body'] > [data-slot='table-row'] {
+    animation: fila-entra 320ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(2) { animation-delay: 25ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(3) { animation-delay: 50ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(4) { animation-delay: 75ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(5) { animation-delay: 100ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(6) { animation-delay: 125ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(7) { animation-delay: 150ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(8) { animation-delay: 175ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(9) { animation-delay: 200ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(10) { animation-delay: 225ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(11) { animation-delay: 250ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(12) { animation-delay: 275ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(13) { animation-delay: 300ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(14) { animation-delay: 325ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(15) { animation-delay: 350ms; }
+  [data-slot='table-body'] > [data-slot='table-row']:nth-child(n + 16) { animation-delay: 350ms; }
+}
+
+/*
+ * Esqueleto de las filas mientras la misma pantalla recarga datos (filtros, búsqueda, paginación): el
+ * contenido de cada celda se oculta y en su lugar pasa un brillo suave, sin cambiar el alto de la tabla.
+ */
+[data-loading] [data-slot='table-body'] > [data-slot='table-row'] > [data-slot='table-cell'] {
+  --esqueleto-barra: color-mix(in oklab, var(--foreground) 10%, transparent);
+  color: transparent;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--foreground) 7%, transparent) 50%, transparent 100%),
+    linear-gradient(var(--esqueleto-barra), var(--esqueleto-barra));
+  background-size:
+    200% 100%,
+    60% 0.625rem;
+  background-repeat: no-repeat;
+  background-position:
+    100% 0,
+    0.75rem 50%;
+  animation: esqueleto-brillo 1.2s ease-in-out infinite;
+}
+
+[data-loading] [data-slot='table-body'] > [data-slot='table-row'] > [data-slot='table-cell'] > * {
+  visibility: hidden;
+}
+
+@keyframes esqueleto-brillo {
+  from {
+    background-position:
+      100% 0,
+      0.75rem 50%;
+  }
+
+  to {
+    background-position:
+      -100% 0,
+      0.75rem 50%;
+  }
+}
+
+@keyframes fila-entra {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/*
+ * Alineación del modo oscuro con el claro: en claro, lo que va dentro de un marco salvia es blanco
+ * (`bg-card`); en oscuro el marco ya usa el tono de tarjeta, así que lo de adentro sube un tono (el de las
+ * filas) para seguir destacando. Va fuera de las capas para ganarle a la utilidad `bg-card`.
+ */
+.dark .bg-frame .bg-card {
+  background-color: var(--muted);
+}
+
+/* En oscuro el marco y la tarjeta tienen el mismo tono: lo que en claro es salvia sobre blanco (círculos de la
+   barra, pastillas, avatares, atajos) desaparecía. Dentro de una tarjeta o ventana, el marco sube al tono de
+   las filas; y dentro de una tarjeta que ya está en un marco, un tono más. Se cambia la variable para que
+   también la sigan los `hover` hechos con `color-mix(var(--frame), …)`. */
+:is(.dark, .green) :is(.bg-card, .bg-popover) {
+  --frame: var(--muted);
+}
+
+:is(.dark, .green) .bg-frame .bg-card {
+  --frame: var(--frame-raised);
+}
+
+/* Dentro de una ventana o tarjeta flotante (en oscuro ya tienen el tono de tarjeta), el marco baja al tono de la página,
+   igual que en claro el marco salvia es más oscuro que la ventana blanca. */
+.dark :is([data-slot='dialog-content'], [data-slot='alert-dialog-content'], [data-surface='popover']) .bg-frame {
+  background-color: var(--background);
+}
+
+/* Movimiento reducido: animaciones y transiciones casi instantáneas para quien lo pide en su sistema. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
