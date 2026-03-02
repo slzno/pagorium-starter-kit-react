@@ -1,68 +1,302 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import * as Icons from '@/components/icons';
+import { illustrations } from '@/components/icons';
+import {
+  AppHeader,
+  FormField,
+  FormSection,
+  InitialsAvatar,
+  ListCard,
+  PageHeader,
+  PageSkeleton,
+  QuickSearch,
+  type QuickSearchFn,
+  ReadField,
+  ReadGrid,
+  StatusBadge,
+} from '@/components/marco';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { NativeSelect } from '@/components/ui/native-select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Textarea } from '@/components/ui/textarea';
+import { type ComponentType, type ReactNode, useState } from 'react';
+
+/** Secciones de la documentación, en orden. */
+const SECCIONES = [
+  ['colores', 'Colores'],
+  ['botones', 'Botones'],
+  ['campos', 'Campos'],
+  ['listas', 'Listas'],
+  ['fichas', 'Fichas'],
+  ['formularios', 'Formularios'],
+  ['esqueletos', 'Esqueletos'],
+  ['iconos', 'Íconos'],
+  ['ilustraciones', 'Ilustraciones'],
+] as const;
+
+/** Tokens de color que se muestran en la paleta. */
+const TOKENS = ['background', 'frame', 'card', 'muted', 'field', 'border', 'primary', 'secondary', 'icon', 'destructive', 'foreground', 'muted-foreground'];
+
+/** Filas de ejemplo para la tabla. */
+const PERSONAS = [
+  { id: 1042, nombre: 'MARÍA JOSÉ LÓPEZ RIVAS', documento: '001-120390-0004K', estado: 'success', etiqueta: 'Activo' },
+  { id: 1041, nombre: 'CARLOS ANDRÉS PÉREZ MENA', documento: '281-050188-0012P', estado: 'warning', etiqueta: 'Por vencer' },
+  { id: 1040, nombre: 'ANA LUCÍA GARCÍA TORRES', documento: '401-230795-0001M', estado: 'danger', etiqueta: 'En mora' },
+  { id: 1039, nombre: 'JOSÉ MIGUEL RUIZ CASTILLO', documento: '041-170299-0008B', estado: 'neutral', etiqueta: 'Cerrado' },
+] as const;
+
+/**
+ * Búsqueda de ejemplo sobre las filas de la tabla.
+ *
+ * @param q Texto buscado.
+ * @return Un grupo con las personas que coinciden.
+ */
+const buscar: QuickSearchFn = async (q) => [
+  {
+    heading: 'Personas',
+    items: PERSONAS.filter((p) => p.nombre.includes(q.toUpperCase()) || String(p.id).startsWith(q)).map((p) => ({
+      id: String(p.id),
+      title: p.nombre,
+      description: `N.º ${p.id}, documento ${p.documento}`,
+      avatarName: p.nombre,
+      badge: { tone: p.estado, label: p.etiqueta },
+      onSelect: () => undefined,
+    })),
+  },
+];
+
+/** Íconos de línea: las funciones exportadas, sin los alias `…Icon` de shadcn ni las ilustraciones. */
+const ICONOS = Object.entries(Icons).filter(
+  ([nombre, valor]) => typeof valor === 'function' && /^[A-Z]/.test(nombre) && !/Icon$/.test(nombre) && !(nombre in illustrations) && nombre !== 'CheckCircle2',
+) as [string, ComponentType<{ className?: string }>][];
+
+/**
+ * Sección de la documentación: título, ayuda y contenido.
+ *
+ * @param id Ancla de la sección.
+ * @param title Título.
+ * @param description Ayuda bajo el título.
+ * @param children Ejemplos.
+ */
+function Seccion({ id, title, description, children }: { id: string; title: string; description: string; children: ReactNode }) {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <section id={id} className="flex flex-col gap-4">
+      <div>
+        <h2 className="text-xl font-bold tracking-tight">{title}</h2>
+        <p className="text-muted-foreground text-sm">{description}</p>
+      </div>
+      {children}
+    </section>
+  );
+}
+
+/**
+ * Documentación de Marco UI: la cabecera real del sistema y un ejemplo de cada pieza (paleta, botones,
+ * campos, listas, fichas, formularios, esqueletos, íconos e ilustraciones).
+ */
+export default function Documentacion() {
+  const [esqueleto, setEsqueleto] = useState<'list' | 'detail' | 'form'>('list');
+
+  return (
+    <div className="flex min-h-svh flex-col">
+      <AppHeader
+        brand={<span className="text-lg font-extrabold tracking-tight">Marco UI</span>}
+        nav={SECCIONES.slice(0, 5).map(([id, titulo]) => ({ title: titulo, href: `#${id}` }))}
+        shortcuts={[
+          { title: 'Repositorio', href: 'https://github.com/pagorium/marco-ui', icon: Icons.ExternalLink, external: true },
+          { title: 'Íconos', href: '#iconos', icon: Icons.Palette },
+        ]}
+        search={<QuickSearch search={buscar} placeholder="Buscar persona" inputPlaceholder="Nombre o número" />}
+        user={{ name: 'Pagorium', email: 'hola@pagorium.com' }}
+        breadcrumbs={[
+          { title: 'Marco UI', href: '/' },
+          { title: 'Documentación', href: '/' },
+        ]}
+      />
+
+      <main className="mx-auto flex w-full max-w-app flex-col gap-14 px-4 py-8 md:px-6">
+        <PageHeader
+          title="Marco UI"
+          description="Sistema de diseño de código abierto de Pagorium: marco salvia, tarjetas blancas, íconos de línea y medidas parejas."
+          actions={
+            <>
+              <Button variant="outline" asChild>
+                <a href="#iconos">Ver íconos</a>
+              </Button>
+              <Button asChild>
+                <a href="#listas">Empezar</a>
+              </Button>
+            </>
+          }
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+
+        <Seccion id="colores" title="Colores" description="Tokens de la paleta; cambian solos en oscuro y en el tema verde.">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+            {TOKENS.map((token) => (
+              <div key={token} className="bg-frame flex flex-col gap-2 rounded-3xl p-3">
+                <div className="ring-foreground/10 h-16 rounded-2xl ring-1" style={{ background: `var(--${token})` }} />
+                <code className="text-xs">--{token}</code>
+              </div>
+            ))}
+          </div>
+        </Seccion>
+
+        <Seccion id="botones" title="Botones" description="Todos miden 46 px; el principal va una sola vez por pantalla.">
+          <div className="bg-frame flex flex-wrap items-center gap-3 rounded-4xl p-5">
+            <Button>Guardar</Button>
+            <Button variant="outline">Cancelar</Button>
+            <Button variant="secondary">Secundario</Button>
+            <Button variant="ghost">Fantasma</Button>
+            <Button variant="destructive">Eliminar</Button>
+            <Button variant="link">Enlace</Button>
+            <Button size="icon" variant="outline" aria-label="Editar">
+              <Icons.Pencil />
+            </Button>
+            <Button disabled>Desactivado</Button>
+          </div>
+        </Seccion>
+
+        <Seccion id="campos" title="Campos" description="Mismo alto que los botones, borde de 2 px y fondo propio de campo.">
+          <div className="bg-frame grid gap-4 rounded-4xl p-5 sm:grid-cols-2 lg:grid-cols-4">
+            <Input placeholder="Texto libre" />
+            <Select>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Elija una opción" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="a">Opción A</SelectItem>
+                <SelectItem value="b">Opción B</SelectItem>
+              </SelectContent>
+            </Select>
+            <NativeSelect defaultValue="">
+              <option value="" disabled>
+                Select nativo
+              </option>
+              <option>Uno</option>
+              <option>Dos</option>
+            </NativeSelect>
+            <Input type="date" />
+            <Textarea className="sm:col-span-2 lg:col-span-4" placeholder="Observaciones" />
+          </div>
+        </Seccion>
+
+        <Seccion id="listas" title="Listas" description="Marco salvia con filas tarjeta; al pasar el mouse la fila se levanta.">
+          <ListCard>
+            <div className="flex items-center justify-between gap-3">
+              <Input className="max-w-sm" placeholder="Buscar por nombre o documento…" />
+              <StatusBadge tone="success">{PERSONAS.length} registros</StatusBadge>
+            </div>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>N.º</TableHead>
+                  <TableHead>Nombre</TableHead>
+                  <TableHead>Documento</TableHead>
+                  <TableHead>Estado</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {PERSONAS.map((p) => (
+                  <TableRow key={p.id}>
+                    <TableCell className="tabular-nums">{p.id}</TableCell>
+                    <TableCell>
+                      <span className="flex items-center gap-3">
+                        <InitialsAvatar name={p.nombre} className="size-7 text-[0.625rem]" />
+                        {p.nombre}
+                      </span>
+                    </TableCell>
+                    <TableCell className="tabular-nums">{p.documento}</TableCell>
+                    <TableCell>
+                      <StatusBadge tone={p.estado}>{p.etiqueta}</StatusBadge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </ListCard>
+        </Seccion>
+
+        <Seccion id="fichas" title="Fichas" description="Pestañas segmentadas y datos de lectura en tarjetas blancas dentro del marco.">
+          <Tabs defaultValue="datos" className="gap-4">
+            <TabsList>
+              <TabsTrigger value="datos">Datos</TabsTrigger>
+              <TabsTrigger value="historial">Historial</TabsTrigger>
+            </TabsList>
+            <TabsContent value="datos">
+              <FormSection title="Datos personales" description="Nombre, documento y contacto.">
+                <ReadGrid>
+                  <ReadField label="Primer nombre" value="María" />
+                  <ReadField label="Apellidos" value="López Rivas" />
+                  <ReadField label="Documento" value="001-120390-0004K" />
+                  <ReadField label="Teléfono" value="8888-1234" />
+                  <ReadField label="Correo" value={null} />
+                </ReadGrid>
+              </FormSection>
+            </TabsContent>
+            <TabsContent value="historial">
+              <FormSection title="Historial" description="Quién creó y modificó el registro.">
+                <ReadGrid>
+                  <ReadField label="Creado por" value="Ana García" />
+                  <ReadField label="Modificado por" value="Carlos Pérez" />
+                </ReadGrid>
+              </FormSection>
+            </TabsContent>
+          </Tabs>
+        </Seccion>
+
+        <Seccion id="formularios" title="Formularios" description="Secciones con título y ayuda, campos con etiqueta y error.">
+          <FormSection title="Nueva persona" description="Los campos con asterisco son obligatorios.">
+            <div className="bg-card grid gap-5 rounded-3xl p-5 sm:grid-cols-2">
+              <FormField label="Nombre *" htmlFor="nombre">
+                <Input id="nombre" placeholder="Nombre completo" />
+              </FormField>
+              <FormField label="Documento *" htmlFor="documento" error="El documento ya está registrado.">
+                <Input id="documento" aria-invalid defaultValue="001-120390-0004K" />
+              </FormField>
+            </div>
+          </FormSection>
+        </Seccion>
+
+        <Seccion id="esqueletos" title="Esqueletos" description="Uno por tipo de pantalla, para que la carga se parezca a lo que viene.">
+          <div className="flex gap-2">
+            {(['list', 'detail', 'form'] as const).map((tipo) => (
+              <Button key={tipo} variant={esqueleto === tipo ? 'default' : 'outline'} onClick={() => setEsqueleto(tipo)}>
+                {{ list: 'Lista', detail: 'Ficha', form: 'Formulario' }[tipo]}
+              </Button>
+            ))}
+          </div>
+          <div className="ring-foreground/10 rounded-4xl ring-1">
+            <PageSkeleton kind={esqueleto} />
+          </div>
+        </Seccion>
+
+        <Seccion id="iconos" title="Íconos" description={`${ICONOS.length} íconos de línea de 1,4 con la pieza clave en el color primario; los nombres siguen a Lucide.`}>
+          <div className="bg-frame grid grid-cols-3 gap-2 rounded-4xl p-4 sm:grid-cols-6 lg:grid-cols-10">
+            {ICONOS.map(([nombre, Icono]) => (
+              <div key={nombre} className="bg-card flex flex-col items-center gap-2 rounded-2xl px-2 py-4">
+                <Icono className="size-7" />
+                <span className="text-muted-foreground w-full truncate text-center text-[0.6875rem]">{nombre}</span>
+              </div>
+            ))}
+          </div>
+        </Seccion>
+
+        <Seccion id="ilustraciones" title="Ilustraciones" description="Íconos duotono más grandes, para tarjetas y catálogos.">
+          <div className="bg-frame grid grid-cols-3 gap-2 rounded-4xl p-4 sm:grid-cols-6 lg:grid-cols-10">
+            {Object.entries(illustrations).map(([nombre, Ilustracion]) => (
+              <div key={nombre} className="bg-card flex flex-col items-center gap-2 rounded-2xl px-2 py-4">
+                <Ilustracion className="size-9" />
+                <span className="text-muted-foreground w-full truncate text-center text-[0.6875rem]">{nombre}</span>
+              </div>
+            ))}
+          </div>
+        </Seccion>
+
+        <footer className="text-muted-foreground border-t pt-6 text-sm">Marco UI, MIT © 2026 Pagorium</footer>
       </main>
     </div>
   );
