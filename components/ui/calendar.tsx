@@ -7,7 +7,7 @@ import { DayPicker, getDefaultClassNames, type DayButton, type Locale } from 're
 import { Button, buttonVariants } from '@/components/ui/button';
 import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon } from '@/components/icons';
 
-/** Calendario basado en react-day-picker con el estilo de Marco UI. */
+/** Calendario basado en react-day-picker con el estilo de Pagorium Starter Kit React. */
 function Calendar({
   className,
   classNames,

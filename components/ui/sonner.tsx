@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes';
 import { Toaster as Sonner, type ToasterProps } from 'sonner';
 import { CircleCheckIcon, InfoIcon, TriangleAlertIcon, OctagonXIcon, Loader2Icon } from '@/components/icons';
 
-/** Contenedor de notificaciones emergentes (Sonner) con los íconos de Marco UI. */
+/** Contenedor de notificaciones emergentes (Sonner) con los íconos de Pagorium Starter Kit React. */
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = 'system' } = useTheme();
 

@@ -143,7 +143,7 @@ export const ShieldOff = line(
 // Escudo con el más en el acento.
 export const ShieldPlus = line('ShieldPlus', SHIELD, 'M12 8.6v6M9 11.6h6');
 
-// Llave: cabeza redonda, caña y dientes en tinta; la hoja de Marco en el acento dentro de la cabeza.
+// Llave: cabeza redonda, caña y dientes en tinta; la hoja de la plantilla en el acento dentro de la cabeza.
 export const KeyRound = line(
   'KeyRound',
   <>

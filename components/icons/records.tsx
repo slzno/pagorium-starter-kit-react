@@ -10,7 +10,7 @@ const DOC = leafRect(5, 2.5, 14, 19, 4, 1);
 const CALENDAR = <><path d={leafRect(3.5, 5, 17, 15.5, 4, 1)} /><path d="M3.5 10h17" /></>;
 const CALENDAR_RINGS = 'M8 3v4M16 3v4';
 
-// Documento: hoja con esquina de hoja y renglones; la hoja de Marco en el acento.
+// Documento: hoja con esquina de hoja y renglones; la hoja de la plantilla en el acento.
 export const FileText = line('FileText', <><path d={DOC} /><path d="M8.5 11h7M8.5 14.5h7M8.5 18h4" /></>, leafStroke(15.5, 8, 4.2, 40));
 
 // Archivo comprimido: hoja con el cierre y su jalador en el acento.

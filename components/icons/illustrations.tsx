@@ -1,9 +1,9 @@
 import { accent, accentFill, bodyLine, icon, type IconComponent, inlay, Leaf, leafRect } from './base';
 
 /**
- * Ilustraciones de Marco UI: íconos grandes en duotono con relleno (ver `icon` en `base.tsx`), pensados
+ * Ilustraciones de Pagorium Starter Kit React: íconos grandes en duotono con relleno (ver `icon` en `base.tsx`), pensados
  * para tarjetas, catálogos y estados vacíos. Cuerpo sólido con esquina de hoja, detalles recortados, capa
- * clara del duotono y la pieza clave en el color primario (`--primary`). Comparten la firma de Marco UI:
+ * clara del duotono y la pieza clave en el color primario (`--primary`). Comparten la firma de Pagorium Starter Kit React:
  * la esquina de hoja y la hoja.
  */
 
@@ -186,7 +186,7 @@ export const CoinArrowBack = icon('CoinArrowBack', {
   ),
 });
 
-/** Cobro del día: calendario sólido con la moneda del acento. */
+/** Pago del día: calendario sólido con la moneda del acento. */
 export const CalendarCoin = icon('CalendarCoin', {
   body: <path d={leafRect(3, 4.5, 16, 15)} />,
   cut: (
@@ -466,7 +466,7 @@ export const FileCycle = icon('FileCycle', {
   ),
 });
 
-/** Documento genérico: hoja sólida con renglones recortados y la hoja de Marco en el acento. */
+/** Documento genérico: hoja sólida con renglones recortados y la hoja de la plantilla en el acento. */
 export const FileLines = icon('FileLines', {
   body: <path d={DOC} />,
   cut: <path d="M8 9h7M8 12.5h7M8 16h4" />,

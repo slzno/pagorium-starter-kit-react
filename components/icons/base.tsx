@@ -1,14 +1,14 @@
 import { Children, cloneElement, type ComponentType, Fragment, isValidElement, type ReactNode, type SVGProps } from 'react';
 
 /**
- * Íconos de Marco UI, en dos lenguajes que comparten su firma: la esquina de hoja y la hoja.
+ * Íconos de Pagorium Starter Kit React, en dos lenguajes que comparten su firma: la esquina de hoja y la hoja.
  *
  * - «Línea de hoja» (`line`), el de todo el sistema: un solo trazo de 1,4 sin rellenos, el cuerpo en la
  *   tinta del ícono (`--icon`) y la pieza clave en el color primario. Ver `line`.
  * - Duotono con relleno (`icon`), solo para las ilustraciones grandes (`illustrations.tsx`): contorno de 1,4 con
  *   relleno claro, detalles recortados y el acento en el color primario.
  *
- * Cuadrícula de 24 × 24. Sobre botones sólidos o en texto rojo, `app/marco.css` cambia el acento
+ * Cuadrícula de 24 × 24. Sobre botones sólidos o en texto rojo, `app/theme.css` cambia el acento
  * (`--icon-accent`) al color del texto.
  */
 
@@ -48,7 +48,7 @@ export const leafRect = (x: number, y: number, w: number, h: number, r = 4.5, t 
   `M${x + r} ${y}H${x + w - t}A${t} ${t} 0 0 1 ${x + w} ${y + t}V${y + h - r}A${r} ${r} 0 0 1 ${x + w - r} ${y + h}H${x + t}A${t} ${t} 0 0 1 ${x} ${y + h - t}V${y + r}A${r} ${r} 0 0 1 ${x + r} ${y}Z`;
 
 /**
- * Hoja de Marco (la firma de Marco UI): punta arriba, cuerpo curvo, inclinada.
+ * Hoja (la firma de Pagorium Starter Kit React): punta arriba, cuerpo curvo, inclinada.
  *
  * @param cx Centro horizontal.
  * @param cy Centro vertical.
@@ -197,7 +197,7 @@ const toNodes = (part: LinePart): ReactNode => (typeof part === 'string' ? <path
  *   color primario (`ACCENT`). El cuerpo se corta (hueco de 1,5 a 2) donde empieza el acento, así se leen
  *   como dos trazos y no como uno pintado a medias.
  * - Contenedores con esquina de hoja: arriba a la izquierda y abajo a la derecha redondas (radio 4) y las
- *   otras dos casi rectas (radio 1), la firma de Marco UI (`leafRect`).
+ *   otras dos casi rectas (radio 1), la firma de Pagorium Starter Kit React (`leafRect`).
  * - Firma: cuando el ícono no tiene una pieza clave obvia, el acento es una hoja abierta (`leafStroke`),
  *   nunca la esquina en ángulo recto de otros sistemas.
  *
@@ -232,7 +232,7 @@ export function line(name: string, body: LinePart, accentPart?: LinePart): IconC
 }
 
 /**
- * Hoja abierta (la firma del lenguaje de línea): dos curvas que se juntan en punta, la firma de Marco UI.
+ * Hoja abierta (la firma del lenguaje de línea): dos curvas que se juntan en punta, la firma de Pagorium Starter Kit React.
  *
  * @param x Base de la hoja (donde nace el tallo).
  * @param y Base de la hoja.

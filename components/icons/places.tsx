@@ -2,7 +2,7 @@ import { leafRect, leafStroke, line } from './base';
 
 /**
  * Lugares, equipos y sistema con el lenguaje «línea de hoja»: contorno de 1,4 en tinta, contenedores con
- * la esquina de hoja de Marco y la pieza clave (puerta, toldo, ruedas, pantalla, luces) en el color primario.
+ * la esquina de hoja de la plantilla y la pieza clave (puerta, toldo, ruedas, pantalla, luces) en el color primario.
  */
 
 // Inicio: techo y paredes en tinta, la puerta en el acento.
@@ -15,7 +15,7 @@ export const Building2 = line(
   'M7.7 20.5v-2.5a2.05 2.05 0 0 1 4.1 0v2.5',
 );
 
-// Sucursal: local con la puerta en tinta y el toldo en el acento.
+// Tienda: local con la puerta en tinta y el toldo en el acento.
 export const Store = line(
   'Store',
   'M5 12v5.5a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V12M10 20.5v-4h4v4',

@@ -111,7 +111,7 @@ ${colorConfig
 /** Tooltip de Recharts. */
 const ChartTooltip = RechartsPrimitive.Tooltip;
 
-/** Contenido del tooltip del gráfico con el estilo de Marco UI. */
+/** Contenido del tooltip del gráfico con el estilo de Pagorium Starter Kit React. */
 function ChartTooltipContent({
   active,
   payload,
@@ -240,7 +240,7 @@ function ChartTooltipContent({
 /** Leyenda de Recharts. */
 const ChartLegend = RechartsPrimitive.Legend;
 
-/** Contenido de la leyenda del gráfico con el estilo de Marco UI. */
+/** Contenido de la leyenda del gráfico con el estilo de Pagorium Starter Kit React. */
 function ChartLegendContent({
   className,
   hideIcon = false,

@@ -1,7 +1,7 @@
 /**
- * Íconos de Marco UI, con los mismos nombres que usaba Lucide para cambiarlos sin tocar las pantallas.
+ * Íconos de Pagorium Starter Kit React, con los mismos nombres que usaba Lucide para cambiarlos sin tocar las pantallas.
  * Lenguaje «línea de hoja» (ver `base.tsx`): trazo de 1,4, cuerpo en la tinta del ícono, la pieza clave en
- * el color primario y contenedores con la esquina de hoja, firma de Marco UI. Las ilustraciones grandes en
+ * el color primario y contenedores con la esquina de hoja, firma de Pagorium Starter Kit React. Las ilustraciones grandes en
  * duotono están en `illustrations.tsx`.
  */
 

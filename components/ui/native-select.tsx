@@ -6,7 +6,7 @@ type NativeSelectProps = Omit<React.ComponentProps<'select'>, 'size'> & {
   size?: 'sm' | 'default';
 };
 
-/** Selector nativo del navegador con el estilo de los campos de Marco UI. */
+/** Selector nativo del navegador con el estilo de los campos de Pagorium Starter Kit React. */
 function NativeSelect({ className, size = 'default', ...props }: NativeSelectProps) {
   return (
     <div

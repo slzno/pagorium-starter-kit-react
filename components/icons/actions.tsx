@@ -40,7 +40,7 @@ export const EyeOff = line(
   'M4 4l16 16',
 );
 
-// Copiar: la hoja de atrás asomada y la de adelante con la hoja de Marco en el acento.
+// Copiar: la hoja de atrás asomada y la de adelante con la hoja de la plantilla en el acento.
 export const Copy = line(
   'Copy',
   <>
@@ -84,7 +84,7 @@ export const Bug = line(
   'M9.2 6.8a2.8 2.8 0 0 1 5.6 0M9.6 3l1 1.4M14.4 3l-1 1.4',
 );
 
-// Rápido: rayo en tinta con la hoja de Marco en el acento.
+// Rápido: rayo en tinta con la hoja de la plantilla en el acento.
 export const Zap = line('Zap', 'M12.5 3 4.5 13h6.5l-1 8 8-10h-6.5z', leafStroke(16.8, 8, 4.4, 35));
 
 // Fórmula: cuadro de hoja en tinta con la «f» en el acento.

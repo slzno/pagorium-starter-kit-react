@@ -40,7 +40,7 @@ const buttonVariants = cva(
   },
 );
 
-/** Botón redondeado de Marco UI; con `asChild` envuelve otro elemento (p. ej. un enlace). */
+/** Botón redondeado de Pagorium Starter Kit React; con `asChild` envuelve otro elemento (p. ej. un enlace). */
 function Button({
   className,
   variant = 'default',
