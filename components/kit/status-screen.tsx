@@ -4,7 +4,8 @@ import { type IconComponent } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { type ReactNode, useState, useSyncExternalStore } from 'react';
+import { type ReactNode, useSyncExternalStore } from 'react';
+import { useNow } from './use-now';
 
 /** Acción de la pantalla de estado: enlace (`href`) o botón (`onClick`). */
 export type StatusAction = {
@@ -72,7 +73,7 @@ export function StatusScreen({
   aside,
   primary,
   secondary,
-  locale = 'es-NI',
+  locale = 'es',
 }: {
   code: string;
   title: string;
@@ -89,7 +90,7 @@ export function StatusScreen({
   secondary?: StatusAction;
   locale?: string;
 }) {
-  const [moment] = useState(() => new Date());
+  const moment = useNow();
   const address = useCurrentAddress();
 
   return (
@@ -136,7 +137,7 @@ export function StatusScreen({
                   </dd>
                   <dt className="text-muted-foreground">Hora</dt>
                   <dd className="font-medium tabular-nums" suppressHydrationWarning>
-                    {moment.toLocaleString(locale, { dateStyle: 'short', timeStyle: 'medium' })}
+                    {moment?.toLocaleString(locale, { dateStyle: 'short', timeStyle: 'short' })}
                   </dd>
                 </dl>
               )}

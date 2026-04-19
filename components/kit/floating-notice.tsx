@@ -152,7 +152,7 @@ export function FloatingNotice({
             className="bg-popover text-popover-foreground ring-foreground/10 fixed right-4 bottom-4 z-40 flex w-[min(24rem,calc(100vw-2rem))] min-w-0 flex-col gap-4 rounded-4xl p-5 text-sm shadow-2xl ring-1"
           >
             <div className="flex min-w-0 items-start gap-3">
-              <span className="bg-por-vencer/25 flex size-11 shrink-0 items-center justify-center rounded-2xl">
+              <span className="bg-warning/25 flex size-11 shrink-0 items-center justify-center rounded-2xl">
                 <Icon className="size-6" />
               </span>
               <div className="flex min-w-0 flex-1 flex-col gap-0.5">

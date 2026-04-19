@@ -23,7 +23,7 @@ interface AppContentProps extends ComponentProps<'main'> {
  *
  * Mientras carga: con `pending="navigation"` muestra el esqueleto de página (`PageSkeleton`) con la forma
  * indicada en `skeleton`; con `pending="same-page"` marca `data-loading` y las filas de las tablas
- * muestran su esqueleto (ver `marco.css`).
+ * muestran su esqueleto (ver `theme.css`).
  *
  * @param props Variante, carga en curso, forma del esqueleto, contenido y props del `<main>`.
  */

@@ -1,5 +1,5 @@
 /**
- * Composiciones de Marco UI: piezas de página hechas con los primitivos (`@/components/ui`) y los íconos
+ * Composiciones de Pagorium Starter Kit React: piezas de página hechas con los primitivos (`@/components/ui`) y los íconos
  * (`@/components/icons`), con el diseño del sistema (marco salvia, tarjetas blancas, campos de 46 px).
  */
 
@@ -48,3 +48,4 @@ export * from './types';
 export * from './use-appearance';
 export * from './user-info';
 export * from './user-menu-content';
+export * from './use-now';

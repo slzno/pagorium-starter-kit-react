@@ -4,12 +4,12 @@ import { type ReactNode } from 'react';
 
 /**
  * Tono de cada estado: el color va en el fondo (tokens de la paleta) y el texto queda en `foreground`,
- * porque el ámbar de «por vencer» no tiene contraste suficiente como texto.
+ * porque el ámbar de aviso no tiene contraste suficiente como texto.
  */
 const TONES = {
   success: 'border-transparent bg-secondary text-secondary-foreground',
-  warning: 'border-transparent bg-por-vencer/25 text-foreground',
-  danger: 'border-transparent bg-mora/15 text-foreground',
+  warning: 'border-transparent bg-warning/25 text-foreground',
+  danger: 'border-transparent bg-danger/15 text-foreground',
   neutral: 'border-transparent bg-muted text-muted-foreground',
 } as const;
 

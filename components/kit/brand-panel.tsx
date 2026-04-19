@@ -3,7 +3,8 @@
 import { ShieldCheck } from '@/components/icons';
 import { Leaf } from '@/components/icons/base';
 import { cn } from '@/lib/utils';
-import { type ReactNode, useEffect, useState } from 'react';
+import { type ReactNode } from 'react';
+import { useNow } from './use-now';
 
 /** Recordatorios de seguridad por omisión para el personal (sistema interno). */
 export const DEFAULT_REMINDERS = [
@@ -40,27 +41,10 @@ export function formatTimeRae(date: Date): string {
 }
 
 /**
- * Fecha y hora actuales que se actualizan cada 20 segundos, para el reloj del panel.
- *
- * @return Momento actual.
- */
-function useNow(): Date {
-  const [now, setNow] = useState(() => new Date());
-
-  useEffect(() => {
-    const timer = setInterval(() => setNow(new Date()), 20000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  return now;
-}
-
-/**
  * Panel de marca del inicio de sesión y de las pantallas de estado (solo en pantallas grandes), sin
  * imágenes: sobre el verde oscuro de la marca (`--brand-ink`) con hojas tenues de fondo, el nombre del
  * sistema, un saludo según la hora (con el nombre de la persona si se pasa), la fecha y la hora, una cifra
- * destacada opcional (por ejemplo, el tipo de cambio del día) y recordatorios de seguridad.
+ * destacada opcional (por ejemplo, un indicador del día) y recordatorios de seguridad.
  *
  * @param brand Nombre del sistema (texto o logo).
  * @param name Nombre con el que se saluda.
@@ -75,7 +59,7 @@ export function BrandPanel({
   highlight,
   reminders = DEFAULT_REMINDERS,
   footer,
-  locale = 'es-NI',
+  locale = 'es',
 }: {
   brand: ReactNode;
   name?: string;
@@ -85,7 +69,7 @@ export function BrandPanel({
   locale?: string;
 }) {
   const now = useNow();
-  const date = now.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const date = now?.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) ?? '';
 
   return (
     <aside className="relative hidden overflow-hidden bg-[var(--brand-ink)] text-white lg:flex">
@@ -102,12 +86,16 @@ export function BrandPanel({
 
         <div className="flex max-w-lg flex-col gap-8">
           <div className="flex flex-col gap-2">
-            <p className="text-5xl leading-tight font-extrabold tracking-tight xl:text-6xl" suppressHydrationWarning>
-              {greeting(now.getHours())}
-              {name ? `, ${name}` : ''}
+            <p className="min-h-[1.25em] text-5xl leading-tight font-extrabold tracking-tight xl:text-6xl">
+              {now && greeting(now.getHours())}
+              {now && name ? `, ${name}` : ''}
             </p>
-            <p className="text-lg text-white/80" suppressHydrationWarning>
-              <span className="inline-block first-letter:uppercase">{date}</span>, <span className="tabular-nums">{formatTimeRae(now)}</span>
+            <p className="min-h-7 text-lg text-white/80">
+              {now && (
+                <>
+                  <span className="inline-block first-letter:uppercase">{date}</span>, <span className="tabular-nums">{formatTimeRae(now)}</span>
+                </>
+              )}
             </p>
           </div>
 
@@ -133,7 +121,7 @@ export function BrandPanel({
         <p className="text-sm text-white/60" suppressHydrationWarning>
           {footer ?? (
             <>
-              © {now.getFullYear()} {brand}
+              © {now?.getFullYear() ?? ''} {brand}
             </>
           )}
         </p>

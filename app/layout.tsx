@@ -8,12 +8,12 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Marco UI',
+  title: 'Pagorium Starter Kit React',
   description: 'Sistema de diseño de código abierto de Pagorium: marco salvia, tarjetas blancas e íconos de línea.',
 };
 
 /**
- * Layout raíz: fuente Plus Jakarta Sans y los estilos de Marco UI.
+ * Layout raíz: fuente Plus Jakarta Sans y los estilos de Pagorium Starter Kit React.
  *
  * @param children Página.
  */

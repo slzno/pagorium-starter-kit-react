@@ -20,7 +20,7 @@ export type FlashMessagesData = {
 export function FlashMessages({ messages, className }: { messages?: FlashMessagesData | null; className?: string }) {
   const notices = [
     { text: messages?.success, icon: CircleCheck, style: 'border-primary/30 bg-primary/5 [&>svg]:text-primary' },
-    { text: messages?.warning, icon: TriangleAlert, style: 'border-por-vencer/40 bg-por-vencer/5 [&>svg]:text-por-vencer' },
+    { text: messages?.warning, icon: TriangleAlert, style: 'border-warning/40 bg-warning/5 [&>svg]:text-warning' },
     { text: messages?.danger ?? messages?.error, icon: CircleAlert, style: 'border-destructive/40 bg-destructive/5 [&>svg]:text-destructive' },
   ].filter((notice) => Boolean(notice.text));
 

@@ -1,5 +1,5 @@
 /*
- * Marco UI · tokens y estilos base de Pagorium.
+ * Pagorium Starter Kit React: tokens y estilos base.
  * Paleta tonal verde con marco salvia y tarjetas blancas, modo oscuro y tema «green», tabla en filas tarjeta,
  * esqueletos de carga y alineación entre claro y oscuro. Importa este archivo una vez en el layout raíz.
  */
@@ -62,8 +62,8 @@
   --color-ink: oklch(28.6% 0.016 107.4);
   --color-line: oklch(88% 0.011 106.6);
   --color-paper: oklch(98.8% 0.003 106.5);
-  --color-mora: oklch(55% 0.2 27);
-  --color-por-vencer: #F59E0B;
+  --color-danger: oklch(55% 0.2 27);
+  --color-warning: #F59E0B;
   --color-info: #0891B2;
   --background-image-brand: linear-gradient(180deg, #3A60CF 0%, #3DB24A 100%);
 
@@ -366,7 +366,7 @@
     @apply border-border;
   }
 
-  /* Los íconos van en el verde de «al día» (`--icon`). Una clase de color en el propio ícono (capa de
+  /* Los íconos van en la tinta de los íconos (`--icon`). Una clase de color en el propio ícono (capa de
      utilidades) gana siempre; sobre botones sólidos y en texto rojo toman el color del texto. */
   :where([data-icon]) {
     color: var(--color-icon);

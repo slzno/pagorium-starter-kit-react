@@ -16,7 +16,7 @@ export type QuickSearchItem = {
   /** Identificador único dentro de la búsqueda. */
   id: string;
   title: ReactNode;
-  /** Línea secundaria en gris (número, documento, sucursal…). */
+  /** Línea secundaria en gris (número, documento, lugar…). */
   description?: ReactNode;
   /** Nombre para dibujar un avatar con iniciales a la izquierda. */
   avatarName?: string;

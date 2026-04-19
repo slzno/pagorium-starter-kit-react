@@ -15,7 +15,7 @@ export type SearchableOption = {
 
 /**
  * Selector con búsqueda (combobox: ventana emergente con lista filtrable): el botón muestra la opción
- * elegida y la lista filtra mientras se escribe. Para listas largas (sucursales, personas, lugares…).
+ * elegida y la lista filtra mientras se escribe. Para listas largas (categorías, personas, lugares…).
  *
  * @param props Identificador, opciones, valor, cambio, textos, clases, deshabilitado y atributos ARIA.
  */
