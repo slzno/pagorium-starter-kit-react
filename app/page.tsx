@@ -15,7 +15,9 @@ import {
   ReadField,
   ReadGrid,
   StatusBadge,
-} from '@/components/marco';
+  UserMenuContent,
+} from '@/components/kit';
+import { Seccion, SeccionAvisos, SeccionBusqueda, SeccionCifras, SeccionControles, SeccionModales, SeccionNavegacion, SeccionPestanas } from './_docs/secciones';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { NativeSelect } from '@/components/ui/native-select';
@@ -23,30 +25,45 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
-import { type ComponentType, type ReactNode, useState } from 'react';
+import { type ComponentType, useState } from 'react';
 
 /** Secciones de la documentación, en orden. */
-const SECCIONES = [
-  ['colores', 'Colores'],
-  ['botones', 'Botones'],
-  ['campos', 'Campos'],
-  ['listas', 'Listas'],
-  ['fichas', 'Fichas'],
-  ['formularios', 'Formularios'],
-  ['esqueletos', 'Esqueletos'],
-  ['iconos', 'Íconos'],
-  ['ilustraciones', 'Ilustraciones'],
-] as const;
+const SECCIONES = {
+  Fundamentos: [
+    ['colores', 'Colores'],
+    ['botones', 'Botones'],
+    ['campos', 'Campos'],
+    ['controles', 'Controles'],
+  ],
+  Pantallas: [
+    ['listas', 'Listas'],
+    ['fichas', 'Fichas'],
+    ['formularios', 'Formularios'],
+    ['esqueletos', 'Esqueletos'],
+  ],
+  Interacción: [
+    ['navegacion', 'Navegación'],
+    ['pestanas', 'Pestañas'],
+    ['modales', 'Ventanas y menús'],
+    ['busqueda', 'Búsqueda'],
+    ['avisos', 'Avisos'],
+  ],
+  Recursos: [
+    ['cifras', 'Cifras y detalle'],
+    ['iconos', 'Íconos'],
+    ['ilustraciones', 'Ilustraciones'],
+  ],
+} as const;
 
 /** Tokens de color que se muestran en la paleta. */
 const TOKENS = ['background', 'frame', 'card', 'muted', 'field', 'border', 'primary', 'secondary', 'icon', 'destructive', 'foreground', 'muted-foreground'];
 
 /** Filas de ejemplo para la tabla. */
 const PERSONAS = [
-  { id: 1042, nombre: 'MARÍA JOSÉ LÓPEZ RIVAS', documento: '001-120390-0004K', estado: 'success', etiqueta: 'Activo' },
-  { id: 1041, nombre: 'CARLOS ANDRÉS PÉREZ MENA', documento: '281-050188-0012P', estado: 'warning', etiqueta: 'Por vencer' },
-  { id: 1040, nombre: 'ANA LUCÍA GARCÍA TORRES', documento: '401-230795-0001M', estado: 'danger', etiqueta: 'En mora' },
-  { id: 1039, nombre: 'JOSÉ MIGUEL RUIZ CASTILLO', documento: '041-170299-0008B', estado: 'neutral', etiqueta: 'Cerrado' },
+  { id: 1042, nombre: 'ALEX EJEMPLO UNO', documento: 'DOC-0001', estado: 'success', etiqueta: 'Activo' },
+  { id: 1041, nombre: 'BRUNO EJEMPLO DOS', documento: 'DOC-0002', estado: 'warning', etiqueta: 'Pendiente' },
+  { id: 1040, nombre: 'CAMILA EJEMPLO TRES', documento: 'DOC-0003', estado: 'danger', etiqueta: 'Vencido' },
+  { id: 1039, nombre: 'DARÍO EJEMPLO CUATRO', documento: 'DOC-0004', estado: 'neutral', etiqueta: 'Cerrado' },
 ] as const;
 
 /**
@@ -75,27 +92,7 @@ const ICONOS = Object.entries(Icons).filter(
 ) as [string, ComponentType<{ className?: string }>][];
 
 /**
- * Sección de la documentación: título, ayuda y contenido.
- *
- * @param id Ancla de la sección.
- * @param title Título.
- * @param description Ayuda bajo el título.
- * @param children Ejemplos.
- */
-function Seccion({ id, title, description, children }: { id: string; title: string; description: string; children: ReactNode }) {
-  return (
-    <section id={id} className="flex flex-col gap-4">
-      <div>
-        <h2 className="text-xl font-bold tracking-tight">{title}</h2>
-        <p className="text-muted-foreground text-sm">{description}</p>
-      </div>
-      {children}
-    </section>
-  );
-}
-
-/**
- * Documentación de Marco UI: la cabecera real del sistema y un ejemplo de cada pieza (paleta, botones,
+ * Documentación de Pagorium Starter Kit React: la cabecera real del sistema y un ejemplo de cada pieza (paleta, botones,
  * campos, listas, fichas, formularios, esqueletos, íconos e ilustraciones).
  */
 export default function Documentacion() {
@@ -104,23 +101,53 @@ export default function Documentacion() {
   return (
     <div className="flex min-h-svh flex-col">
       <AppHeader
-        brand={<span className="text-lg font-extrabold tracking-tight">Marco UI</span>}
-        nav={SECCIONES.slice(0, 5).map(([id, titulo]) => ({ title: titulo, href: `#${id}` }))}
+        brand={<span className="text-lg font-extrabold tracking-tight">Pagorium Starter Kit React</span>}
+        nav={[
+          { title: 'Inicio', href: '/' },
+          {
+            title: 'Componentes',
+            label: 'Lo más usado',
+            items: [
+              { title: 'Listas', href: '#listas', icon: Icons.ClipboardList },
+              { title: 'Fichas', href: '#fichas', icon: Icons.IdCard },
+              { title: 'Formularios', href: '#formularios', icon: Icons.Pencil },
+              { title: 'Ventanas y menús', href: '#modales', icon: Icons.LayoutDashboard },
+            ],
+          },
+          {
+            title: 'Documentación',
+            groups: Object.entries(SECCIONES).map(([grupo, enlaces]) => ({
+              title: grupo,
+              items: enlaces.map(([id, titulo]) => ({ title: titulo, href: `#${id}`, icon: Icons.FileText })),
+            })),
+          },
+        ]}
         shortcuts={[
-          { title: 'Repositorio', href: 'https://github.com/pagorium/marco-ui', icon: Icons.ExternalLink, external: true },
+          { title: 'Avisos', href: '#avisos', icon: Icons.Inbox, count: 3 },
           { title: 'Íconos', href: '#iconos', icon: Icons.Palette },
+          { title: 'Repositorio', href: 'https://github.com/pagorium/starter-kit-react', icon: Icons.ExternalLink, external: true },
         ]}
         search={<QuickSearch search={buscar} placeholder="Buscar persona" inputPlaceholder="Nombre o número" />}
-        user={{ name: 'Pagorium', email: 'hola@pagorium.com' }}
+        user={{ name: 'Pagorium', email: 'demo@ejemplo.com' }}
+        userMenu={
+          <UserMenuContent
+            user={{ name: 'Pagorium', email: 'demo@ejemplo.com' }}
+            items={[
+              { label: 'Editar mi perfil', icon: Icons.UserPen, href: '#formularios' },
+              { label: 'Cambiar contraseña', icon: Icons.KeyRound, href: '#controles' },
+            ]}
+            onLogout={() => undefined}
+          />
+        }
         breadcrumbs={[
-          { title: 'Marco UI', href: '/' },
+          { title: 'Pagorium Starter Kit React', href: '/' },
           { title: 'Documentación', href: '/' },
         ]}
       />
 
       <main className="mx-auto flex w-full max-w-app flex-col gap-14 px-4 py-8 md:px-6">
         <PageHeader
-          title="Marco UI"
+          title="Pagorium Starter Kit React"
           description="Sistema de diseño de código abierto de Pagorium: marco salvia, tarjetas blancas, íconos de línea y medidas parejas."
           actions={
             <>
@@ -184,6 +211,8 @@ export default function Documentacion() {
           </div>
         </Seccion>
 
+        <SeccionControles />
+
         <Seccion id="listas" title="Listas" description="Marco salvia con filas tarjeta; al pasar el mouse la fila se levanta.">
           <ListCard>
             <div className="flex items-center justify-between gap-3">
@@ -229,10 +258,10 @@ export default function Documentacion() {
             <TabsContent value="datos">
               <FormSection title="Datos personales" description="Nombre, documento y contacto.">
                 <ReadGrid>
-                  <ReadField label="Primer nombre" value="María" />
-                  <ReadField label="Apellidos" value="López Rivas" />
-                  <ReadField label="Documento" value="001-120390-0004K" />
-                  <ReadField label="Teléfono" value="8888-1234" />
+                  <ReadField label="Primer nombre" value="Alex" />
+                  <ReadField label="Apellidos" value="Ejemplo Uno" />
+                  <ReadField label="Documento" value="DOC-0001" />
+                  <ReadField label="Teléfono" value="0000-0000" />
                   <ReadField label="Correo" value={null} />
                 </ReadGrid>
               </FormSection>
@@ -240,8 +269,8 @@ export default function Documentacion() {
             <TabsContent value="historial">
               <FormSection title="Historial" description="Quién creó y modificó el registro.">
                 <ReadGrid>
-                  <ReadField label="Creado por" value="Ana García" />
-                  <ReadField label="Modificado por" value="Carlos Pérez" />
+                  <ReadField label="Creado por" value="Usuario de prueba" />
+                  <ReadField label="Modificado por" value="Otro usuario de prueba" />
                 </ReadGrid>
               </FormSection>
             </TabsContent>
@@ -255,7 +284,7 @@ export default function Documentacion() {
                 <Input id="nombre" placeholder="Nombre completo" />
               </FormField>
               <FormField label="Documento *" htmlFor="documento" error="El documento ya está registrado.">
-                <Input id="documento" aria-invalid defaultValue="001-120390-0004K" />
+                <Input id="documento" aria-invalid defaultValue="DOC-0001" />
               </FormField>
             </div>
           </FormSection>
@@ -273,6 +302,18 @@ export default function Documentacion() {
             <PageSkeleton kind={esqueleto} />
           </div>
         </Seccion>
+
+        <SeccionNavegacion />
+
+        <SeccionPestanas />
+
+        <SeccionModales />
+
+        <SeccionBusqueda />
+
+        <SeccionAvisos />
+
+        <SeccionCifras />
 
         <Seccion id="iconos" title="Íconos" description={`${ICONOS.length} íconos de línea de 1,4 con la pieza clave en el color primario; los nombres siguen a Lucide.`}>
           <div className="bg-frame grid grid-cols-3 gap-2 rounded-4xl p-4 sm:grid-cols-6 lg:grid-cols-10">
@@ -296,7 +337,7 @@ export default function Documentacion() {
           </div>
         </Seccion>
 
-        <footer className="text-muted-foreground border-t pt-6 text-sm">Marco UI, MIT © 2026 Pagorium</footer>
+        <footer className="text-muted-foreground border-t pt-6 text-sm">Pagorium Starter Kit React, MIT © 2026 Pagorium</footer>
       </main>
     </div>
   );

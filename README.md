@@ -1,7 +1,8 @@
-# Marco UI
+# Pagorium Starter Kit React
 
-Sistema de diseño de código abierto de **Pagorium** para aplicaciones internas y de gestión, hecho con
-React 19, Next.js, Tailwind CSS 4 y Radix (sobre la base de shadcn/ui).
+Plantilla de código abierto de **Pagorium** para arrancar aplicaciones internas y de gestión, al estilo de
+los starter kits de Laravel: diseño, componentes, íconos y pantallas listos, hechos con React 19, Next.js,
+Tailwind CSS 4 y Radix (sobre la base de shadcn/ui). Es neutra: no trae lógica de ningún negocio.
 
 ## La idea
 
@@ -17,11 +18,12 @@ React 19, Next.js, Tailwind CSS 4 y Radix (sobre la base de shadcn/ui).
 
 | Carpeta | Contenido |
 |---|---|
-| `app/marco.css` | Tokens, temas, tablas, esqueletos y alineación claro/oscuro. |
+| `app/theme.css` | Tokens, temas, tablas, esqueletos y alineación claro/oscuro. |
 | `components/ui` | Primitivos (botón, campos, select, diálogo, tabla, pestañas…). |
 | `components/icons` | Íconos de línea con los nombres de Lucide e ilustraciones. |
-| `components/marco` | Composiciones: listas, fichas, formularios, esqueletos, pantallas de estado, cabecera. |
+| `components/kit` | Composiciones: cabecera y navegación, listas, fichas, formularios, esqueletos, búsqueda rápida, avisos, recorrido y pantallas de estado. |
 | `app/page.tsx` | Documentación y ejemplos de todo. |
+| `app/ejemplos` | Pantallas completas: inicio de sesión, error y sistema cerrado. |
 
 ## Uso
 
