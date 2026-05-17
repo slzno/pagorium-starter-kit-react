@@ -1,6 +1,7 @@
 'use client';
 
 import { SearchX } from '@/components/icons';
+import { MadeByPagorium, StarterKitLogo } from '@/components/brands';
 import { BrandPanel, StatusScreen } from '@/components/kit';
 
 /**
@@ -16,7 +17,7 @@ export default function EjemploError() {
       message="La página que busca no existe o cambió de dirección."
       steps={['Revise que la dirección esté bien escrita.', 'Si llegó desde un enlace guardado, búsquelo de nuevo desde el menú.', 'Si el problema sigue, reporte la dirección de abajo a soporte.']}
       showDetail
-      aside={<BrandPanel brand="Pagorium Starter Kit React" />}
+      aside={<BrandPanel brand={<StarterKitLogo large className="text-white" />} footer={<MadeByPagorium onDark />} />}
       primary={{ label: 'Volver a la documentación', href: '/' }}
       secondary={{ label: 'Regresar', onClick: () => window.history.back() }}
     />

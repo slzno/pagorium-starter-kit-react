@@ -1,5 +1,6 @@
 'use client';
 
+import { MadeByPagorium, StarterKitLogo } from '@/components/brands';
 import * as Icons from '@/components/icons';
 import { illustrations } from '@/components/icons';
 import {
@@ -101,7 +102,8 @@ export default function Documentacion() {
   return (
     <div className="flex min-h-svh flex-col">
       <AppHeader
-        brand={<span className="text-lg font-extrabold tracking-tight">Pagorium Starter Kit React</span>}
+        brand={<StarterKitLogo />}
+        brandLabel="Pagorium Starter Kit React"
         nav={[
           { title: 'Inicio', href: '/' },
           {
@@ -126,6 +128,7 @@ export default function Documentacion() {
           { title: 'Avisos', href: '#avisos', icon: Icons.Inbox, count: 3 },
           { title: 'Íconos', href: '#iconos', icon: Icons.Palette },
           { title: 'Repositorio', href: 'https://github.com/pagorium/starter-kit-react', icon: Icons.ExternalLink, external: true },
+          { title: 'Pagorium', href: 'https://pagorium.com', icon: Icons.Building2, external: true },
         ]}
         search={<QuickSearch search={buscar} placeholder="Buscar persona" inputPlaceholder="Nombre o número" />}
         user={{ name: 'Pagorium', email: 'demo@ejemplo.com' }}
@@ -337,7 +340,10 @@ export default function Documentacion() {
           </div>
         </Seccion>
 
-        <footer className="text-muted-foreground border-t pt-6 text-sm">Pagorium Starter Kit React, MIT © 2026 Pagorium</footer>
+        <footer className="text-muted-foreground flex flex-col items-center justify-between gap-4 border-t pt-6 text-sm sm:flex-row">
+          <span>Pagorium Starter Kit React, licencia MIT © 2026 Pagorium.</span>
+          <MadeByPagorium />
+        </footer>
       </main>
     </div>
   );
