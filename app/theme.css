@@ -46,7 +46,7 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-full: 999px;
 
-  /* Escalas de marca del PDF (reemplazan esos tonos de Tailwind). */
+  /* Escalas de marca (reemplazan esos tonos de Tailwind). */
   --color-green-50: #EAF4EA;
   --color-green-400: #66B069;
   --color-green-600: #2F8D2C;
@@ -78,7 +78,7 @@
 
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  /* Azul de la hoja del logo: acento de los íconos duotono. */
+  /* Azul de apoyo: acento opcional de los íconos duotono. */
   --color-icon: var(--icon);
 
   --color-secondary: var(--secondary);
@@ -119,7 +119,7 @@
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
   /*---break---*/
-  /* El acordeón aparece con opacidad y desplazamiento: Hallmark no anima height. */
+  /* El acordeón aparece con opacidad y desplazamiento, sin animar el alto. */
   @keyframes accordion-down {
     from {
       opacity: 0;
@@ -149,7 +149,7 @@
  * oliva profundo y sube el verde. Contrastes verificados en ambos modos.
  */
 :root {
-  /* Miniaturas de Apariencia: los dos temas a la vez, sin cambiar con el tema activo. */
+  /* Miniaturas del selector de tema: los dos temas a la vez, sin cambiar con el tema activo. */
   --preview-light-surface: oklch(100% 0 0);
   --preview-light-line: oklch(91% 0.015 148);
   --preview-light-muted: oklch(93% 0.014 148);
@@ -159,10 +159,10 @@
   --preview-dark-muted: oklch(26.5% 0.022 148);
   --preview-dark-accent: oklch(83% 0.11 148);
 
-  /* Tema claro salvia suave: fondo, bordes y textos secundarios con un verde muy tenue del logo (tono 148,
+  /* Tema claro salvia suave: fondo, bordes y textos secundarios con un verde muy tenue (tono 148,
      croma bajo) para que combine con el tema oscuro sin teñir la pantalla; el verde pleno queda para la
      acción principal, el foco, la selección y los estados. Página blanca, marcos salvia (--frame) y, dentro,
-     filas, campos y tarjetas blancas, igual que las vistas previas de la versión 2. */
+     filas, campos y tarjetas blancas. */
   --background: oklch(100% 0 0);
   --foreground: oklch(21% 0.015 148);
   --card: oklch(100% 0 0);
@@ -188,11 +188,11 @@
      verde al pasar el cursor, para que todos se vean iguales y combinen con el resto. */
   --field: oklch(100% 0 0);
   /* Marcos de las secciones (listas, formularios, tableros): salvia sobre la página blanca, con los
-     elementos blancos encima, como en las vistas previas de la versión 2. */
+     elementos blancos encima. */
   --frame: oklch(94.5% 0.014 148);
   --frame-raised: var(--frame);
   --shadow-ink: color-mix(in oklab, var(--foreground), transparent 88%);
-  /* Panel de marca del inicio de sesión: el verde oscuro del logo, igual en claro y oscuro. */
+  /* Panel de marca del inicio de sesión: verde oscuro, igual en claro y oscuro. */
   --brand-ink: oklch(27% 0.065 150);
   --brand-ink-glow: oklch(38% 0.1 150);
   --field-hover: oklch(62% 0.09 150);
@@ -213,7 +213,7 @@
   --sidebar-border: oklch(91% 0.015 148);
   --sidebar-ring: oklch(48% 0.11 148);
 
-  /* Variables de marca del PDF. */
+  /* Variables de marca. */
   --gradient-brand: linear-gradient(180deg, #3A60CF 0%, #3DB24A 100%);
 }
 
@@ -270,8 +270,8 @@
 }
 
 /*
- * Tema «green» (verde oscuro, el color principal de la marca) del PDF; se activa con la clase green en <html>.
- * Los tokens de sidebar que el PDF no trae siguen los de tarjeta, acento y borde del mismo tema.
+ * Tema «green» (verde oscuro, el color principal de la marca); se activa con la clase green en <html>.
+ * Los tokens de la barra lateral siguen los de tarjeta, acento y borde del mismo tema.
  */
 .green {
   --icon: #66B069;

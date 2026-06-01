@@ -24,6 +24,7 @@ Tailwind CSS 4 y Radix (sobre la base de shadcn/ui). Es neutra: no trae lógica 
 | `components/kit` | Composiciones: cabecera y navegación, listas, fichas, formularios, esqueletos, búsqueda rápida, avisos, recorrido y pantallas de estado. |
 | `components/brands` | Logo del starter kit (`StarterKitLogo`, `StarterKitMark`), logo de Pagorium y la firma «Hecho por Pagorium». |
 | `app/page.tsx` | Documentación y ejemplos de todo. |
+| `app/codigo` | Ruta estática que entrega el código de la plantilla para copiarlo desde la documentación. |
 | `app/ejemplos` | Pantallas completas: inicio de sesión, error y sistema cerrado. |
 
 ## Uso
@@ -33,7 +34,9 @@ npm install
 npm run dev
 ```
 
-Abre http://localhost:3000 para ver la documentación con todos los componentes.
+Abre http://localhost:3000 para ver la documentación con todos los componentes. Cada sección tiene un botón
+**Código** con el ejemplo de uso y los archivos para copiar; la sección **Tema** copia los tokens (para
+cualquier proyecto con shadcn) o el CSS completo, y el **Catálogo** abre el código de cualquier archivo.
 
 ## Licencia
 

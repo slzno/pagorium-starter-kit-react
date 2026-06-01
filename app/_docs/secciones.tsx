@@ -61,11 +61,14 @@ import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Link from 'next/link';
+import { BotonCodigo } from './codigo';
+import { CODIGO } from './ejemplos-codigo';
 import { type ReactNode, useState } from 'react';
 import { toast } from 'sonner';
 
 /**
- * Sección de la documentación: título, ayuda y contenido.
+ * Sección de la documentación: título, ayuda, el botón «Código» (si la sección tiene ejemplo en `CODIGO`) y
+ * el contenido.
  *
  * @param id Ancla de la sección.
  * @param title Título.
@@ -73,11 +76,16 @@ import { toast } from 'sonner';
  * @param children Ejemplos.
  */
 export function Seccion({ id, title, description, children }: { id: string; title: string; description: string; children: ReactNode }) {
+  const codigo = CODIGO[id];
+
   return (
     <section id={id} className="flex flex-col gap-4">
-      <div>
-        <h2 className="text-xl font-bold tracking-tight">{title}</h2>
-        <p className="text-muted-foreground text-sm">{description}</p>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 className="text-xl font-bold tracking-tight">{title}</h2>
+          <p className="text-muted-foreground text-sm">{description}</p>
+        </div>
+        {codigo && <BotonCodigo title={title} files={codigo.files} usage={codigo.usage} />}
       </div>
       {children}
     </section>

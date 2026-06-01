@@ -1,6 +1,6 @@
 'use client';
 
-import { MadeByPagorium, StarterKitLogo } from '@/components/brands';
+import { StarterKitLogo } from '@/components/brands';
 import * as Icons from '@/components/icons';
 import { illustrations } from '@/components/icons';
 import {
@@ -27,9 +27,14 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { type ComponentType, useState } from 'react';
+import { PieDocumentacion, SeccionCatalogo, SeccionInstalacion, SeccionTema } from './_docs/extra';
 
 /** Secciones de la documentación, en orden. */
 const SECCIONES = {
+  Empezar: [
+    ['instalacion', 'Instalación'],
+    ['tema', 'Tema'],
+  ],
   Fundamentos: [
     ['colores', 'Colores'],
     ['botones', 'Botones'],
@@ -53,6 +58,7 @@ const SECCIONES = {
     ['cifras', 'Cifras y detalle'],
     ['iconos', 'Íconos'],
     ['ilustraciones', 'Ilustraciones'],
+    ['catalogo', 'Catálogo'],
   ],
 } as const;
 
@@ -151,18 +157,22 @@ export default function Documentacion() {
       <main className="mx-auto flex w-full max-w-app flex-col gap-14 px-4 py-8 md:px-6">
         <PageHeader
           title="Pagorium Starter Kit React"
-          description="Sistema de diseño de código abierto de Pagorium: marco salvia, tarjetas blancas, íconos de línea y medidas parejas."
+          description="Plantilla de código abierto de Pagorium para arrancar aplicaciones con React: tema, componentes, íconos y pantallas listos para copiar."
           actions={
             <>
               <Button variant="outline" asChild>
-                <a href="#iconos">Ver íconos</a>
+                <a href="#tema">Copiar el tema</a>
               </Button>
               <Button asChild>
-                <a href="#listas">Empezar</a>
+                <a href="#instalacion">Empezar</a>
               </Button>
             </>
           }
         />
+
+        <SeccionInstalacion />
+
+        <SeccionTema />
 
         <Seccion id="colores" title="Colores" description="Tokens de la paleta; cambian solos en oscuro y en el tema verde.">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
@@ -340,11 +350,10 @@ export default function Documentacion() {
           </div>
         </Seccion>
 
-        <footer className="text-muted-foreground flex flex-col items-center justify-between gap-4 border-t pt-6 text-sm sm:flex-row">
-          <span>Pagorium Starter Kit React, licencia MIT © 2026 Pagorium.</span>
-          <MadeByPagorium />
-        </footer>
+        <SeccionCatalogo />
       </main>
+
+      <PieDocumentacion grupos={{ Fundamentos: SECCIONES.Fundamentos, Interacción: SECCIONES.Interacción }} />
     </div>
   );
 }
