@@ -61,14 +61,14 @@ import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Link from 'next/link';
-import { BotonCodigo } from './codigo';
+import { PanelCodigo } from './codigo';
 import { CODIGO } from './ejemplos-codigo';
 import { type ReactNode, useState } from 'react';
 import { toast } from 'sonner';
 
 /**
- * Sección de la documentación: título, ayuda, el botón «Código» (si la sección tiene ejemplo en `CODIGO`) y
- * el contenido.
+ * Sección de la documentación: título, ayuda y, si la sección tiene ejemplo en `CODIGO`, las pestañas «Vista
+ * previa» (el contenido) y «Código» (el uso y los archivos para copiar), como en la documentación de shadcn.
  *
  * @param id Ancla de la sección.
  * @param title Título.
@@ -77,17 +77,47 @@ import { toast } from 'sonner';
  */
 export function Seccion({ id, title, description, children }: { id: string; title: string; description: string; children: ReactNode }) {
   const codigo = CODIGO[id];
+  const [vista, setVista] = useState('preview');
+
+  const cabecera = (
+    <div>
+      <h2 className="text-xl font-bold tracking-tight">{title}</h2>
+      <p className="text-muted-foreground text-sm">{description}</p>
+    </div>
+  );
+
+  if (!codigo) {
+    return (
+      <section id={id} className="flex flex-col gap-4">
+        {cabecera}
+        {children}
+      </section>
+    );
+  }
 
   return (
     <section id={id} className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h2 className="text-xl font-bold tracking-tight">{title}</h2>
-          <p className="text-muted-foreground text-sm">{description}</p>
+      <Tabs value={vista} onValueChange={setVista} className="gap-4">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          {cabecera}
+          <TabsList aria-label={`Vista de ${title}`}>
+            <TabsTrigger value="preview">
+              <Icons.Eye /> Vista previa
+            </TabsTrigger>
+            <TabsTrigger value="codigo">
+              <Icons.FileText /> Código
+            </TabsTrigger>
+          </TabsList>
         </div>
-        {codigo && <BotonCodigo title={title} files={codigo.files} usage={codigo.usage} />}
-      </div>
-      {children}
+        <TabsContent value="preview" className="flex flex-col gap-4">
+          {children}
+        </TabsContent>
+        <TabsContent value="codigo">
+          <div className="bg-frame rounded-4xl p-4">
+            <PanelCodigo files={codigo.files} usage={codigo.usage} activo={vista === 'codigo'} />
+          </div>
+        </TabsContent>
+      </Tabs>
     </section>
   );
 }

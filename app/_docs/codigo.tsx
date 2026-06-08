@@ -125,18 +125,56 @@ export function BloqueCodigo({ code, title, className }: { code: string; title?:
 const nombre = (ruta: string): string => ruta.split('/').at(-1) ?? ruta;
 
 /**
- * Botón «Código» que abre una ventana con el ejemplo de uso y el código React de los archivos indicados,
- * cada uno en su pestaña y con botón de copiar.
+ * Código de un componente: el ejemplo de uso y los archivos React, cada uno en su pestaña y con botón de
+ * copiar. Los archivos se piden solo cuando `activo` es verdadero (cuando se ve el panel).
+ *
+ * @param files Rutas de los archivos (por ejemplo, `components/ui/button.tsx`).
+ * @param usage Ejemplo de uso en JSX.
+ * @param activo Si ya se muestra (para cargar el código).
+ */
+export function PanelCodigo({ files = [], usage, activo }: { files?: string[]; usage?: string; activo: boolean }) {
+  const fuentes = useFuentes(activo);
+
+  return (
+    <Tabs defaultValue={usage ? 'uso' : files[0]} className="min-w-0 gap-3">
+      <TabsList variant="line" className="max-w-full justify-start overflow-x-auto">
+        {usage && <TabsTrigger value="uso">Uso</TabsTrigger>}
+        {files.map((ruta) => (
+          <TabsTrigger key={ruta} value={ruta} className="font-mono text-xs">
+            {nombre(ruta)}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+      {usage && (
+        <TabsContent value="uso">
+          <BloqueCodigo code={usage} title="ejemplo.tsx" />
+        </TabsContent>
+      )}
+      {files.map((ruta) => (
+        <TabsContent key={ruta} value={ruta}>
+          {fuentes === false ? (
+            <p className="text-destructive text-sm">No se pudo cargar el código. Inténtelo de nuevo.</p>
+          ) : fuentes === null ? (
+            <p className="text-muted-foreground text-sm">Cargando el código…</p>
+          ) : (
+            <BloqueCodigo code={fuentes[ruta] ?? '// Archivo no encontrado.'} title={ruta} />
+          )}
+        </TabsContent>
+      ))}
+    </Tabs>
+  );
+}
+
+/**
+ * Botón que abre una ventana con el código de uno o varios archivos (lo usa el catálogo).
  *
  * @param title Título de la ventana.
- * @param files Rutas de los archivos (por ejemplo, `components/ui/button.tsx`).
+ * @param files Rutas de los archivos.
  * @param usage Ejemplo de uso en JSX.
  * @param trigger Botón propio en lugar del de «Código».
  */
 export function BotonCodigo({ title, files = [], usage, trigger }: { title: string; files?: string[]; usage?: string; trigger?: ReactNode }) {
   const [abierto, setAbierto] = useState(false);
-  const fuentes = useFuentes(abierto);
-  const primera = usage ? 'uso' : files[0];
 
   return (
     <Dialog open={abierto} onOpenChange={setAbierto}>
@@ -150,34 +188,9 @@ export function BotonCodigo({ title, files = [], usage, trigger }: { title: stri
       <DialogContent className="max-h-[90svh] gap-4 overflow-y-auto sm:max-w-4xl">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>Copia el ejemplo y los archivos a tu proyecto; dependen del tema y de `lib/utils.ts`.</DialogDescription>
+          <DialogDescription>Copia el archivo a tu proyecto; depende del tema y de `lib/utils.ts`.</DialogDescription>
         </DialogHeader>
-        <Tabs defaultValue={primera} className="min-w-0 gap-4">
-          <TabsList className="max-w-full justify-start overflow-x-auto">
-            {usage && <TabsTrigger value="uso">Uso</TabsTrigger>}
-            {files.map((ruta) => (
-              <TabsTrigger key={ruta} value={ruta}>
-                {nombre(ruta)}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          {usage && (
-            <TabsContent value="uso">
-              <BloqueCodigo code={usage} title="ejemplo.tsx" />
-            </TabsContent>
-          )}
-          {files.map((ruta) => (
-            <TabsContent key={ruta} value={ruta}>
-              {fuentes === false ? (
-                <p className="text-destructive text-sm">No se pudo cargar el código. Inténtelo de nuevo.</p>
-              ) : fuentes === null ? (
-                <p className="text-muted-foreground text-sm">Cargando el código…</p>
-              ) : (
-                <BloqueCodigo code={fuentes[ruta] ?? '// Archivo no encontrado.'} title={ruta} />
-              )}
-            </TabsContent>
-          ))}
-        </Tabs>
+        <PanelCodigo files={files} usage={usage} activo={abierto} />
       </DialogContent>
     </Dialog>
   );
