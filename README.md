@@ -34,8 +34,8 @@ npm install
 npm run dev
 ```
 
-Abre http://localhost:3000 para ver la documentación con todos los componentes. Cada sección tiene un botón
-**Código** con el ejemplo de uso y los archivos para copiar; la sección **Tema** copia los tokens (para
+Abre http://localhost:3000 para ver la documentación con todos los componentes. Cada sección tiene las pestañas
+**Vista previa** y **Código**: el código es el mismo ejemplo que se ve, completo, y los archivos que usa; la sección **Tema** copia los tokens (para
 cualquier proyecto con shadcn) o el CSS completo, y el **Catálogo** abre el código de cualquier archivo.
 
 ## Licencia

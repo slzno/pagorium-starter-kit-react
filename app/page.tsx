@@ -2,32 +2,26 @@
 
 import { StarterKitLogo } from '@/components/brands';
 import * as Icons from '@/components/icons';
-import { illustrations } from '@/components/icons';
-import {
-  AppHeader,
-  FormField,
-  FormSection,
-  InitialsAvatar,
-  ListCard,
-  PageHeader,
-  PageSkeleton,
-  QuickSearch,
-  type QuickSearchFn,
-  ReadField,
-  ReadGrid,
-  StatusBadge,
-  UserMenuContent,
-} from '@/components/kit';
-import { Seccion, SeccionAvisos, SeccionBusqueda, SeccionCifras, SeccionControles, SeccionModales, SeccionNavegacion, SeccionPestanas } from './_docs/secciones';
+import { AppHeader, PageHeader, QuickSearch, type QuickSearchFn, UserMenuContent } from '@/components/kit';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { NativeSelect } from '@/components/ui/native-select';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Textarea } from '@/components/ui/textarea';
-import { type ComponentType, useState } from 'react';
 import { PieDocumentacion, SeccionCatalogo, SeccionInstalacion, SeccionTema } from './_docs/extra';
+import { Seccion } from './_docs/secciones';
+import EjemploColores from './_docs/ejemplos/colores';
+import EjemploBotones from './_docs/ejemplos/botones';
+import EjemploCampos from './_docs/ejemplos/campos';
+import EjemploControles from './_docs/ejemplos/controles';
+import EjemploListas from './_docs/ejemplos/listas';
+import EjemploFichas from './_docs/ejemplos/fichas';
+import EjemploFormularios from './_docs/ejemplos/formularios';
+import EjemploEsqueletos from './_docs/ejemplos/esqueletos';
+import EjemploNavegacion from './_docs/ejemplos/navegacion';
+import EjemploPestanas from './_docs/ejemplos/pestanas';
+import EjemploModales from './_docs/ejemplos/modales';
+import EjemploBusqueda from './_docs/ejemplos/busqueda';
+import EjemploAvisos from './_docs/ejemplos/avisos';
+import EjemploCifras from './_docs/ejemplos/cifras';
+import EjemploIconos from './_docs/ejemplos/iconos';
+import EjemploIlustraciones from './_docs/ejemplos/ilustraciones';
 
 /** Secciones de la documentación, en orden. */
 const SECCIONES = {
@@ -62,10 +56,7 @@ const SECCIONES = {
   ],
 } as const;
 
-/** Tokens de color que se muestran en la paleta. */
-const TOKENS = ['background', 'frame', 'card', 'muted', 'field', 'border', 'primary', 'secondary', 'icon', 'destructive', 'foreground', 'muted-foreground'];
-
-/** Filas de ejemplo para la tabla. */
+/** Personas de ejemplo para la búsqueda de la barra (datos ficticios). */
 const PERSONAS = [
   { id: 1042, nombre: 'ALEX EJEMPLO UNO', documento: 'DOC-0001', estado: 'success', etiqueta: 'Activo' },
   { id: 1041, nombre: 'BRUNO EJEMPLO DOS', documento: 'DOC-0002', estado: 'warning', etiqueta: 'Pendiente' },
@@ -93,18 +84,11 @@ const buscar: QuickSearchFn = async (q) => [
   },
 ];
 
-/** Íconos de línea: las funciones exportadas, sin los alias `…Icon` de shadcn ni las ilustraciones. */
-const ICONOS = Object.entries(Icons).filter(
-  ([nombre, valor]) => typeof valor === 'function' && /^[A-Z]/.test(nombre) && !/Icon$/.test(nombre) && !(nombre in illustrations) && nombre !== 'CheckCircle2',
-) as [string, ComponentType<{ className?: string }>][];
-
 /**
  * Documentación de Pagorium Starter Kit React: la cabecera real del sistema y un ejemplo de cada pieza (paleta, botones,
  * campos, listas, fichas, formularios, esqueletos, íconos e ilustraciones).
  */
 export default function Documentacion() {
-  const [esqueleto, setEsqueleto] = useState<'list' | 'detail' | 'form'>('list');
-
   return (
     <div className="flex min-h-svh flex-col">
       <AppHeader
@@ -175,179 +159,67 @@ export default function Documentacion() {
         <SeccionTema />
 
         <Seccion id="colores" title="Colores" description="Tokens de la paleta; cambian solos en oscuro y en el tema verde.">
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
-            {TOKENS.map((token) => (
-              <div key={token} className="bg-frame flex flex-col gap-2 rounded-3xl p-3">
-                <div className="ring-foreground/10 h-16 rounded-2xl ring-1" style={{ background: `var(--${token})` }} />
-                <code className="text-xs">--{token}</code>
-              </div>
-            ))}
-          </div>
+          <EjemploColores />
         </Seccion>
 
         <Seccion id="botones" title="Botones" description="Todos miden 46 px; el principal va una sola vez por pantalla.">
-          <div className="bg-frame flex flex-wrap items-center gap-3 rounded-4xl p-5">
-            <Button>Guardar</Button>
-            <Button variant="outline">Cancelar</Button>
-            <Button variant="secondary">Secundario</Button>
-            <Button variant="ghost">Fantasma</Button>
-            <Button variant="destructive">Eliminar</Button>
-            <Button variant="link">Enlace</Button>
-            <Button size="icon" variant="outline" aria-label="Editar">
-              <Icons.Pencil />
-            </Button>
-            <Button disabled>Desactivado</Button>
-          </div>
+          <EjemploBotones />
         </Seccion>
 
         <Seccion id="campos" title="Campos" description="Mismo alto que los botones, borde de 2 px y fondo propio de campo.">
-          <div className="bg-frame grid gap-4 rounded-4xl p-5 sm:grid-cols-2 lg:grid-cols-4">
-            <Input placeholder="Texto libre" />
-            <Select>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Elija una opción" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="a">Opción A</SelectItem>
-                <SelectItem value="b">Opción B</SelectItem>
-              </SelectContent>
-            </Select>
-            <NativeSelect defaultValue="">
-              <option value="" disabled>
-                Select nativo
-              </option>
-              <option>Uno</option>
-              <option>Dos</option>
-            </NativeSelect>
-            <Input type="date" />
-            <Textarea className="sm:col-span-2 lg:col-span-4" placeholder="Observaciones" />
-          </div>
+          <EjemploCampos />
         </Seccion>
 
-        <SeccionControles />
+        <Seccion id="controles" title="Controles" description="Casillas, interruptores, opciones, contraseña con ojo y acordeón.">
+          <EjemploControles />
+        </Seccion>
 
         <Seccion id="listas" title="Listas" description="Marco salvia con filas tarjeta; al pasar el mouse la fila se levanta.">
-          <ListCard>
-            <div className="flex items-center justify-between gap-3">
-              <Input className="max-w-sm" placeholder="Buscar por nombre o documento…" />
-              <StatusBadge tone="success">{PERSONAS.length} registros</StatusBadge>
-            </div>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>N.º</TableHead>
-                  <TableHead>Nombre</TableHead>
-                  <TableHead>Documento</TableHead>
-                  <TableHead>Estado</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {PERSONAS.map((p) => (
-                  <TableRow key={p.id}>
-                    <TableCell className="tabular-nums">{p.id}</TableCell>
-                    <TableCell>
-                      <span className="flex items-center gap-3">
-                        <InitialsAvatar name={p.nombre} className="size-7 text-[0.625rem]" />
-                        {p.nombre}
-                      </span>
-                    </TableCell>
-                    <TableCell className="tabular-nums">{p.documento}</TableCell>
-                    <TableCell>
-                      <StatusBadge tone={p.estado}>{p.etiqueta}</StatusBadge>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </ListCard>
+          <EjemploListas />
         </Seccion>
 
         <Seccion id="fichas" title="Fichas" description="Pestañas segmentadas y datos de lectura en tarjetas blancas dentro del marco.">
-          <Tabs defaultValue="datos" className="gap-4">
-            <TabsList>
-              <TabsTrigger value="datos">Datos</TabsTrigger>
-              <TabsTrigger value="historial">Historial</TabsTrigger>
-            </TabsList>
-            <TabsContent value="datos">
-              <FormSection title="Datos personales" description="Nombre, documento y contacto.">
-                <ReadGrid>
-                  <ReadField label="Primer nombre" value="Alex" />
-                  <ReadField label="Apellidos" value="Ejemplo Uno" />
-                  <ReadField label="Documento" value="DOC-0001" />
-                  <ReadField label="Teléfono" value="0000-0000" />
-                  <ReadField label="Correo" value={null} />
-                </ReadGrid>
-              </FormSection>
-            </TabsContent>
-            <TabsContent value="historial">
-              <FormSection title="Historial" description="Quién creó y modificó el registro.">
-                <ReadGrid>
-                  <ReadField label="Creado por" value="Usuario de prueba" />
-                  <ReadField label="Modificado por" value="Otro usuario de prueba" />
-                </ReadGrid>
-              </FormSection>
-            </TabsContent>
-          </Tabs>
+          <EjemploFichas />
         </Seccion>
 
         <Seccion id="formularios" title="Formularios" description="Secciones con título y ayuda, campos con etiqueta y error.">
-          <FormSection title="Nueva persona" description="Los campos con asterisco son obligatorios.">
-            <div className="bg-card grid gap-5 rounded-3xl p-5 sm:grid-cols-2">
-              <FormField label="Nombre *" htmlFor="nombre">
-                <Input id="nombre" placeholder="Nombre completo" />
-              </FormField>
-              <FormField label="Documento *" htmlFor="documento" error="El documento ya está registrado.">
-                <Input id="documento" aria-invalid defaultValue="DOC-0001" />
-              </FormField>
-            </div>
-          </FormSection>
+          <EjemploFormularios />
         </Seccion>
 
         <Seccion id="esqueletos" title="Esqueletos" description="Uno por tipo de pantalla, para que la carga se parezca a lo que viene.">
-          <div className="flex gap-2">
-            {(['list', 'detail', 'form'] as const).map((tipo) => (
-              <Button key={tipo} variant={esqueleto === tipo ? 'default' : 'outline'} onClick={() => setEsqueleto(tipo)}>
-                {{ list: 'Lista', detail: 'Ficha', form: 'Formulario' }[tipo]}
-              </Button>
-            ))}
-          </div>
-          <div className="ring-foreground/10 rounded-4xl ring-1">
-            <PageSkeleton kind={esqueleto} />
-          </div>
+          <EjemploEsqueletos />
         </Seccion>
 
-        <SeccionNavegacion />
+        <Seccion id="navegacion" title="Navegación" description="La barra de arriba es AppHeader: menú sencillo, menú grande por columnas, búsqueda, accesos con contador, tema y menú del usuario.">
+          <EjemploNavegacion />
+        </Seccion>
 
-        <SeccionPestanas />
+        <Seccion id="pestanas" title="Pestañas" description="Control segmentado con la activa en blanco; la variante de línea para secciones secundarias.">
+          <EjemploPestanas />
+        </Seccion>
 
-        <SeccionModales />
+        <Seccion id="modales" title="Ventanas y menús" description="Todas se cierran con Esc o fuera de ellas, salvo la confirmación y el recorrido obligatorio.">
+          <EjemploModales />
+        </Seccion>
 
-        <SeccionBusqueda />
+        <Seccion id="busqueda" title="Búsqueda" description="La búsqueda rápida abre con Ctrl + K o «/»; prueba con «alex» o «ejemplo».">
+          <EjemploBusqueda />
+        </Seccion>
 
-        <SeccionAvisos />
+        <Seccion id="avisos" title="Avisos" description="Alertas en línea, mensajes tras guardar, notificaciones emergentes y el aviso flotante minimizable.">
+          <EjemploAvisos />
+        </Seccion>
 
-        <SeccionCifras />
+        <Seccion id="cifras" title="Cifras y detalle" description="Métricas con su etiqueta y listas de detalle de dos columnas.">
+          <EjemploCifras />
+        </Seccion>
 
-        <Seccion id="iconos" title="Íconos" description={`${ICONOS.length} íconos de línea de 1,4 con la pieza clave en el color primario; los nombres siguen a Lucide.`}>
-          <div className="bg-frame grid grid-cols-3 gap-2 rounded-4xl p-4 sm:grid-cols-6 lg:grid-cols-10">
-            {ICONOS.map(([nombre, Icono]) => (
-              <div key={nombre} className="bg-card flex flex-col items-center gap-2 rounded-2xl px-2 py-4">
-                <Icono className="size-7" />
-                <span className="text-muted-foreground w-full truncate text-center text-[0.6875rem]">{nombre}</span>
-              </div>
-            ))}
-          </div>
+        <Seccion id="iconos" title="Íconos" description="Íconos de línea de 1,4 con la pieza clave en el color primario; los nombres siguen a Lucide.">
+          <EjemploIconos />
         </Seccion>
 
         <Seccion id="ilustraciones" title="Ilustraciones" description="Íconos duotono más grandes, para tarjetas y catálogos.">
-          <div className="bg-frame grid grid-cols-3 gap-2 rounded-4xl p-4 sm:grid-cols-6 lg:grid-cols-10">
-            {Object.entries(illustrations).map(([nombre, Ilustracion]) => (
-              <div key={nombre} className="bg-card flex flex-col items-center gap-2 rounded-2xl px-2 py-4">
-                <Ilustracion className="size-9" />
-                <span className="text-muted-foreground w-full truncate text-center text-[0.6875rem]">{nombre}</span>
-              </div>
-            ))}
-          </div>
+          <EjemploIlustraciones />
         </Seccion>
 
         <SeccionCatalogo />

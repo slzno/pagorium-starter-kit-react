@@ -1,8 +1,8 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-/** Carpetas y archivos cuyo código se publica en la documentación para copiarlo. */
-const CARPETAS = ['components/ui', 'components/kit', 'components/icons', 'components/brands', 'hooks'];
+/** Carpetas y archivos cuyo código se publica en la documentación para copiarlo (los ejemplos primero). */
+const CARPETAS = ['app/_docs/ejemplos', 'components/ui', 'components/kit', 'components/icons', 'components/brands', 'hooks'];
 const SUELTOS = ['lib/utils.ts', 'app/theme.css'];
 
 /**

@@ -181,13 +181,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 /** Títulos de los grupos del catálogo, por carpeta. */
 const GRUPOS: [string, string][] = [
+  ['app/_docs/ejemplos', 'Ejemplos (app/_docs/ejemplos)'],
   ['components/ui', 'Primitivos (components/ui)'],
   ['components/kit', 'Composiciones (components/kit)'],
   ['components/icons', 'Íconos (components/icons)'],
   ['components/brands', 'Logos (components/brands)'],
   ['hooks', 'Hooks'],
   ['lib', 'Utilidades'],
-  ['app', 'Tema'],
+  ['app/theme.css', 'Tema'],
 ];
 
 /**
@@ -204,7 +205,7 @@ export function SeccionCatalogo() {
         {fuentes === false && <p className="text-destructive text-sm">No se pudo cargar el catálogo. Recarga la página.</p>}
         {fuentes === null && <p className="text-muted-foreground text-sm">Cargando el catálogo…</p>}
         {GRUPOS.map(([carpeta, titulo]) => {
-          const archivos = rutas.filter((ruta) => ruta.startsWith(`${carpeta}/`));
+          const archivos = rutas.filter((ruta) => ruta === carpeta || ruta.startsWith(`${carpeta}/`));
 
           return archivos.length === 0 ? null : (
             <div key={carpeta} className="flex flex-col gap-2">

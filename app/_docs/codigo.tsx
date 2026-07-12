@@ -125,31 +125,25 @@ export function BloqueCodigo({ code, title, className }: { code: string; title?:
 const nombre = (ruta: string): string => ruta.split('/').at(-1) ?? ruta;
 
 /**
- * Código de un componente: el ejemplo de uso y los archivos React, cada uno en su pestaña y con botón de
- * copiar. Los archivos se piden solo cuando `activo` es verdadero (cuando se ve el panel).
+ * Código de un componente: el ejemplo completo (el mismo que se ve en la vista previa) y los archivos React
+ * que usa, cada uno en su pestaña y con botón de copiar. Los archivos se piden solo cuando `activo` es
+ * verdadero (cuando se ve el panel).
  *
- * @param files Rutas de los archivos (por ejemplo, `components/ui/button.tsx`).
- * @param usage Ejemplo de uso en JSX.
+ * @param files Rutas de los archivos; el primero de `app/_docs/ejemplos` se rotula «Ejemplo».
  * @param activo Si ya se muestra (para cargar el código).
  */
-export function PanelCodigo({ files = [], usage, activo }: { files?: string[]; usage?: string; activo: boolean }) {
+export function PanelCodigo({ files = [], activo }: { files?: string[]; activo: boolean }) {
   const fuentes = useFuentes(activo);
 
   return (
-    <Tabs defaultValue={usage ? 'uso' : files[0]} className="min-w-0 gap-3">
+    <Tabs defaultValue={files[0]} className="min-w-0 gap-3">
       <TabsList variant="line" className="max-w-full justify-start overflow-x-auto">
-        {usage && <TabsTrigger value="uso">Uso</TabsTrigger>}
         {files.map((ruta) => (
-          <TabsTrigger key={ruta} value={ruta} className="font-mono text-xs">
-            {nombre(ruta)}
+          <TabsTrigger key={ruta} value={ruta} className={ruta.startsWith('app/_docs/ejemplos/') ? undefined : 'font-mono text-xs'}>
+            {ruta.startsWith('app/_docs/ejemplos/') ? 'Ejemplo' : nombre(ruta)}
           </TabsTrigger>
         ))}
       </TabsList>
-      {usage && (
-        <TabsContent value="uso">
-          <BloqueCodigo code={usage} title="ejemplo.tsx" />
-        </TabsContent>
-      )}
       {files.map((ruta) => (
         <TabsContent key={ruta} value={ruta}>
           {fuentes === false ? (
@@ -170,10 +164,9 @@ export function PanelCodigo({ files = [], usage, activo }: { files?: string[]; u
  *
  * @param title Título de la ventana.
  * @param files Rutas de los archivos.
- * @param usage Ejemplo de uso en JSX.
  * @param trigger Botón propio en lugar del de «Código».
  */
-export function BotonCodigo({ title, files = [], usage, trigger }: { title: string; files?: string[]; usage?: string; trigger?: ReactNode }) {
+export function BotonCodigo({ title, files = [], trigger }: { title: string; files?: string[]; trigger?: ReactNode }) {
   const [abierto, setAbierto] = useState(false);
 
   return (
@@ -190,7 +183,7 @@ export function BotonCodigo({ title, files = [], usage, trigger }: { title: stri
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>Copia el archivo a tu proyecto; depende del tema y de `lib/utils.ts`.</DialogDescription>
         </DialogHeader>
-        <PanelCodigo files={files} usage={usage} activo={abierto} />
+        <PanelCodigo files={files} activo={abierto} />
       </DialogContent>
     </Dialog>
   );
