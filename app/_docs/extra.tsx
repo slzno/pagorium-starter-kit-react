@@ -310,7 +310,7 @@ export function PieDocumentacion({ grupos }: { grupos: Record<string, readonly (
           />
         </div>
         <div className="text-muted-foreground flex flex-col gap-2 border-t pt-6 text-xs sm:flex-row sm:items-center sm:justify-between">
-          <span>© 2025-2026 Pagorium. Publicado con licencia MIT: úsalo, cámbialo y compártelo.</span>
+          <span>© 2025-2026 Pagorium Technologies. Publicado con licencia MIT: úsalo, cámbialo y compártelo.</span>
           <span>Hecho con React, Next.js, Tailwind CSS y Radix.</span>
         </div>
       </div>

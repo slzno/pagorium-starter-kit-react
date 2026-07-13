@@ -40,4 +40,7 @@ cualquier proyecto con shadcn) o el CSS completo, y el **Catálogo** abre el có
 
 ## Licencia
 
-MIT © 2025-2026 [Pagorium](https://pagorium.com). Ver [LICENSE](LICENSE).
+MIT © 2025-2026 [Pagorium Technologies](https://pagorium.com). Ver [LICENSE](LICENSE).
+
+Los componentes de `components/ui` parten de [shadcn/ui](https://github.com/shadcn-ui/ui) (MIT © 2023 shadcn);
+su aviso de licencia va incluido en `LICENSE`.
