@@ -2,6 +2,36 @@
   "name": "pagorium-starter-kit-react",
   "version": "0.1.0",
   "private": true,
+  "description": "Plantilla de código abierto de Pagorium para arrancar aplicaciones internas y de gestión con React, Next.js, Tailwind CSS 4 y Radix.",
+  "license": "MIT",
+  "author": {
+    "name": "Pagorium Technologies",
+    "url": "https://pagorium.com"
+  },
+  "homepage": "https://github.com/slzno/pagorium-starter-kit-react#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slzno/pagorium-starter-kit-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/slzno/pagorium-starter-kit-react/issues"
+  },
+  "keywords": [
+    "react",
+    "nextjs",
+    "tailwindcss",
+    "shadcn-ui",
+    "radix-ui",
+    "starter-kit",
+    "design-system",
+    "ui-components",
+    "dark-mode",
+    "typescript",
+    "pagorium"
+  ],
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

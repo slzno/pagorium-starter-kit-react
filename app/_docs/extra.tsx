@@ -13,7 +13,7 @@ const DEPENDENCIAS =
   'class-variance-authority clsx cmdk date-fns embla-carousel-react input-otp motion next-themes radix-ui react-day-picker react-resizable-panels recharts shadcn sonner tailwind-merge tw-animate-css vaul';
 
 /** Repositorio público de la plantilla. */
-export const REPOSITORIO = 'https://github.com/pagorium/starter-kit-react';
+export const REPOSITORIO = 'https://github.com/slzno/pagorium-starter-kit-react';
 
 /**
  * Indica si un elemento ya entró en pantalla (una sola vez), para cargar el código solo cuando se ve.

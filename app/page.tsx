@@ -117,7 +117,7 @@ export default function Documentacion() {
         shortcuts={[
           { title: 'Avisos', href: '#avisos', icon: Icons.Inbox, count: 3 },
           { title: 'Íconos', href: '#iconos', icon: Icons.Palette },
-          { title: 'Repositorio', href: 'https://github.com/pagorium/starter-kit-react', icon: Icons.ExternalLink, external: true },
+          { title: 'Repositorio', href: 'https://github.com/slzno/pagorium-starter-kit-react', icon: Icons.ExternalLink, external: true },
           { title: 'Pagorium', href: 'https://pagorium.com', icon: Icons.Building2, external: true },
         ]}
         search={<QuickSearch search={buscar} placeholder="Buscar persona" inputPlaceholder="Nombre o número" />}
