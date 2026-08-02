@@ -50,7 +50,16 @@ export default function EjemploNavegacion() {
           <Link href="/ejemplos/acceso">Inicio de sesión</Link>
         </Button>
         <Button variant="outline" asChild>
-          <Link href="/ejemplos/error">Página no encontrada</Link>
+          <Link href="/ejemplos/403">Error 403</Link>
+        </Button>
+        <Button variant="outline" asChild>
+          <Link href="/ejemplos/404">Error 404</Link>
+        </Button>
+        <Button variant="outline" asChild>
+          <Link href="/ejemplos/419">Error 419</Link>
+        </Button>
+        <Button variant="outline" asChild>
+          <Link href="/ejemplos/500">Error 500</Link>
         </Button>
         <Button variant="outline" asChild>
           <Link href="/ejemplos/cerrado">Sistema cerrado</Link>

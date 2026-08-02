@@ -107,8 +107,23 @@ Logo del starter kit (`StarterKitLogo`, `StarterKitMark`), logo de Pagorium y la
 | Ruta | Pantalla |
 |---|---|
 | `/ejemplos/acceso` | Inicio de sesión con panel de marca, saludo según la hora y recordatorios. |
-| `/ejemplos/error` | Pantalla de error con ilustración y acciones. |
+| `/ejemplos/403` | Acceso denegado: el usuario no tiene permiso para la ruta. |
+| `/ejemplos/404` | Página no encontrada (la misma de `app/not-found.tsx`). |
+| `/ejemplos/419` | La página expiró: sesión o formulario vencidos. |
+| `/ejemplos/500` | Error inesperado (la misma de `app/error.tsx`). |
 | `/ejemplos/cerrado` | Sistema cerrado o fuera de horario. |
+
+### Páginas de error
+
+Las cuatro usan `StatusScreen` con el panel de marca, el código con su ícono y tono, qué puede hacer la
+persona y la dirección y hora para reportarlas a soporte:
+
+| Código | Archivo | Cuándo sale |
+|---|---|---|
+| 403 | `app/ejemplos/403/page.tsx` | Ejemplo para copiar donde la app niegue un permiso. |
+| 404 | `app/not-found.tsx` | Solo: cualquier dirección que no existe o una llamada a `notFound()`. |
+| 419 | `app/ejemplos/419/page.tsx` | Ejemplo para copiar cuando venza la sesión o el token del formulario. |
+| 500 | `app/error.tsx` | Solo: cualquier error al mostrar una página; «Volver a intentar» llama a `retry()`. |
 
 ## Requisitos
 
@@ -180,7 +195,9 @@ Para un proyecto con Next.js y Tailwind CSS 4:
 │   ├── page.tsx         # Documentación y ejemplos de todo
 │   ├── _docs/           # Secciones, ejemplos y su código para la documentación
 │   ├── codigo/          # Ruta estática que entrega el código de la plantilla para copiarlo
-│   └── ejemplos/        # Pantallas completas: acceso, error y cerrado
+│   ├── not-found.tsx    # Página 404
+│   ├── error.tsx        # Página 500
+│   └── ejemplos/        # Pantallas completas: acceso, cerrado, 403, 404, 419 y 500
 ├── components/
 │   ├── ui/              # Primitivos (botón, campos, select, diálogo, tabla, pestañas…)
 │   ├── kit/             # Composiciones de página
@@ -250,6 +267,12 @@ Los reportes y las propuestas son bienvenidos en
 2. Respeta las medidas del sistema (46 px, marco salvia, tarjetas blancas) y prueba en claro y en oscuro.
 3. Si agregas un componente, agrega también su ejemplo en la documentación.
 4. Corre `npm run lint` y `npm run build`.
+
+## Origen
+
+Este diseño nació del trabajo de interfaz que Luis Solórzano desarrolló entre marzo y noviembre
+de 2026, y se publicó como plantilla abierta de Pagorium en noviembre de 2026. Los cambios desde
+entonces están en el [CHANGELOG](CHANGELOG.md).
 
 ## Licencia
 

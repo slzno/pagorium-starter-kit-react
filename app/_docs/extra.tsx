@@ -296,7 +296,7 @@ export function PieDocumentacion({ grupos }: { grupos: Record<string, readonly (
               { label: 'Tema', href: '#tema' },
               { label: 'Catálogo', href: '#catalogo' },
               { label: 'Inicio de sesión', href: '/ejemplos/acceso' },
-              { label: 'Página de error', href: '/ejemplos/error' },
+              { label: 'Páginas de error', href: '/ejemplos/404' },
             ]}
           />
           <ColumnaPie
