@@ -270,9 +270,8 @@ Los reportes y las propuestas son bienvenidos en
 
 ## Origen
 
-Este diseño nació del trabajo de interfaz que Luis Solórzano desarrolló entre marzo y noviembre
-de 2026, y se publicó como plantilla abierta de Pagorium en noviembre de 2026. Los cambios desde
-entonces están en el [CHANGELOG](CHANGELOG.md).
+Pagorium Starter Kit React fue creado por el desarrollador Luis Solórzano y se publica como
+plantilla de código abierto de [Pagorium Technologies](https://pagorium.com).
 
 ## Licencia
 
